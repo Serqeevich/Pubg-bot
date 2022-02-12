@@ -1,0 +1,54 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "description": "pubg-pt discord bot for lfs and stats roles",
+  "main": "dist/bot.js",
+  "author": "antoniojps",
+  "license": "MIT",
+  "scripts": {
+    "commit": "git-cz",
+    "start:dev": "nodemon dist/bot.js",
+    "start": "node dist/bot.js",
+    "build": "tsc",
+    "postintall": "npm run build",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/lodash": "^4.14.165",
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.20",
+    "mongoose": "^5.13.14",
+    "query-string": "^6.13.7",
+    "yargs-parser": "^20.2.4"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.10.3",
+    "@types/node": "^14.14.12",
+    "@types/yargs-parser": "^15.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "git-cz": "^4.7.6",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3",
+    "nodemon": "^2.0.6",
+    "prettier": "^2.2.1",
+    "typescript": "^4.5.5"
+  }
+}
