@@ -1,21 +1,10 @@
-# PUBG-PT
-
-### What is this repository for?
-
-This is the main discord bot repository.
+# Pubg-bot
 
 ### How do I get set up?
 
 Don't be a crybaby: clone, install and run the commands
 
-## How to run this app
-
-1. Clone this repository: `git clone git@github.com:antoniojps/discord-bot-pubg.git`
-2. `cd discord-bot-pubg`
-3. `yarn install`
-4. `tsc -w` and `yarn start`
-
-## Available commands
+## Команды
 
 | Command      | Description                                                      |
 | :----------- | :--------------------------------------------------------------- |
