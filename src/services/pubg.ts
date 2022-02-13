@@ -180,7 +180,7 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
       data: { data },
     }: AxiosResponse<PubgPlayerResponse> = await pubg.get(url);
 
-    const dataSquad: any = getSquadData(playerId, seasonId);
+    const dataSquad: any = await getSquadData(playerId, seasonId);
 
     console.log('dataSquad', dataSquad);
 
