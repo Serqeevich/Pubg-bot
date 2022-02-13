@@ -140,7 +140,7 @@ export const reactionsResolver = async (client: Client, reaction: MessageReactio
     const emoji = reaction.emoji.name;
     const resolver = resolvers[emoji];
     await resolver(client, reaction, user);
-  } catch (err) {
+  } catch (err: any) {
     console.error(`Error running reaction resolver: "${reaction.emoji.name} - "`, err.message);
     await logError(client, reaction.message.channel.id, err);
   }

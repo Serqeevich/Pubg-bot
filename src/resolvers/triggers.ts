@@ -44,7 +44,7 @@ export const triggersResolver = async (client: Client, message: Message) => {
         await trigger.resolver(client, message);
       }
     });
-  } catch (err) {
+  } catch (err: any) {
     await logError(client, message.channel.id, err);
   }
 };

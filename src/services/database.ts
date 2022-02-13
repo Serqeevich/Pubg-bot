@@ -15,7 +15,7 @@ export default async () => {
         useUnifiedTopology: true,
       });
       console.log('connected to mongodb', MONGODB_URI);
-    } catch (err) {
+    } catch (err: any) {
       console.log('Failed connection to MONGO DATABASE');
       console.error(err.message);
       throw new Error(err);

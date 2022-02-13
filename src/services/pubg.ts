@@ -118,7 +118,7 @@ const getCurrentSeason = async (): Promise<PubgSeason> => {
     } = await pubg.get(url);
     const currentSeason = seasons.find((season: PubgSeason) => season.attributes.isCurrentSeason);
     return currentSeason;
-  } catch (err) {
+  } catch (err: any) {
     throw new Error(err);
   }
 };
@@ -136,7 +136,7 @@ const getPlayerId = async (player: string): Promise<string> => {
         `Não encontramos nenhum jogador com o nickname \`${player}\`. Tens de escrever o nome do PUBG com as letras exatamente iguais ao PUBG (minúsculas e maiúsculas).`,
       );
     return accountId;
-  } catch (err) {
+  } catch (err: any) {
     if (err && err.response && err.response.status && err.response.status === 404)
       throw new EmbedError(
         `Não encontramos nenhum jogador com o nickname \`${player}\`.  Tens de escrever o nome do PUBG com as letras exatamente iguais ao PUBG (minúsculas e maiúsculas).`,
@@ -191,7 +191,7 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
       winRatio: toPercentage(winRatio),
       roundsPlayed,
     };
-  } catch (err) {
+  } catch (err: any) {
     if (err && err.response && err.response.status === 404)
       throw new EmbedError(`É necessário jogar no mínimo ${MINIMUM_GAMES} jogos de ranked para obter as roles.`);
 
