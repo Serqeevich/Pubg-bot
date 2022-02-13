@@ -108,7 +108,7 @@ const computeRoleNameFromStats = (role: RoleGeneric, stat: number, type: any, ma
   const statNumbers = Object.keys(role).map((value) => Number(value));
   const statRoleClosest = findClosestNumber(statNumbers, stat);
   const statRole = statRoleClosest > max ? `+${statRoleClosest}` : statRoleClosest;
-  return `${statRole} ${type}`;
+  return `${type} ${statRole}`;
 };
 
 export const removeRoles = async (member: GuildMember) => {
