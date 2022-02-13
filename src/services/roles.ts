@@ -102,9 +102,9 @@ const ROLES: Roles = [
   { name: FPPKD['5'], color: [147, 112, 219] },
 ];
 
-type RoleGeneric = typeof RANKS | typeof KD | typeof ADR;
+type RoleGeneric = typeof RANKS | typeof KD | typeof ADR | typeof TPPADR | typeof TPPKD | typeof FPPADR | typeof FPPKD;
 
-const computeRoleNameFromStats = (role: RoleGeneric, stat: number, type: 'KD' | 'ADR', max: number) => {
+const computeRoleNameFromStats = (role: RoleGeneric, stat: number, type: any, max: number) => {
   const statNumbers = Object.keys(role).map((value) => Number(value));
   const statRoleClosest = findClosestNumber(statNumbers, stat);
   const statRole = statRoleClosest > max ? `+${statRoleClosest}` : statRoleClosest;
@@ -126,10 +126,10 @@ const addRoles = async (member: GuildMember, stats: Stats) => {
 
   const kdRoleName = stats.kd ? computeRoleNameFromStats(KD, stats.kd, 'KD', 5) : null;
   const adrRoleName = stats.avgDamage ? computeRoleNameFromStats(ADR, stats.avgDamage, 'ADR', 500) : null;
-  const kdRoleNameTPP = stats.kdTPP ? computeRoleNameFromStats(KD, stats.kd, 'KD', 5) : null;
-  const adrRoleNameTPP = stats.adrTPP ? computeRoleNameFromStats(ADR, stats.avgDamage, 'ADR', 500) : null;
-  const kdRoleNameFPP = stats.kdFPP ? computeRoleNameFromStats(KD, stats.kd, 'KD', 5) : null;
-  const adrRoleNameFPP = stats.kdFPP ? computeRoleNameFromStats(ADR, stats.avgDamage, 'ADR', 500) : null;
+  const kdRoleNameTPP = stats.kdTPP ? computeRoleNameFromStats(KD, stats.kdTPP, 'KD', 5) : null;
+  const adrRoleNameTPP = stats.adrTPP ? computeRoleNameFromStats(ADR, stats.adrTPP, 'ADR', 500) : null;
+  const kdRoleNameFPP = stats.kdFPP ? computeRoleNameFromStats(KD, stats.kdFPP, 'KD', 5) : null;
+  const adrRoleNameFPP = stats.adrFPP ? computeRoleNameFromStats(ADR, stats.adrFPP, 'ADR', 500) : null;
   const rankRoleName = stats.bestRank ? RANKS[stats.bestRank] : null;
   const rolesNameToBeAssigned = [
     kdRoleName,
@@ -153,7 +153,7 @@ const addRoles = async (member: GuildMember, stats: Stats) => {
 
 export const addStatsRoles = async (member: GuildMember, stats: Stats) => {
   // remove previous roles
-  console.log('stats', stats);
+  console.log('addStatsRoles', stats);
   await removeRoles(member);
   await addRoles(member, stats);
 };
