@@ -43,7 +43,7 @@ const UserSchema = new mongoose.Schema({
 export interface UserPartial {
   discordId: string;
   pubgNickname: string;
-  stats?: Stats | StatsPartial | null;
+  stats?: Stats | null;
 }
 export interface UserDocument extends UserPartial, Document {
   createdAt: string;

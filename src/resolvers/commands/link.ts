@@ -50,7 +50,6 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
     typeof stats?.bestRank === 'string' &&
     typeof stats?.avgDamage === 'number' &&
     typeof stats?.kd === 'number' &&
-    typeof stats?.winRatio === 'number' &&
     message?.member
   ) {
     // remove roles from user that had the nickname before forced change
@@ -62,14 +61,15 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
       }
     }
 
-    const linkedDiscordId = isAdminCommand ? discordId : message.author.id;
+    // const linkedDiscordId = isAdminCommand ? discordId : message.author.id;
     let member: GuildMember | undefined = message.member;
     if (isAdminCommand) {
       member = await message.guild?.members.fetch(discordId);
     }
     if (!member) throw new EmbedError('Utilizador não encontrado no servidor');
     await addStatsRoles(member, stats);
-    const messageStats = `<@${linkedDiscordId}>, **Modo**: Squad-FPP, **Rank** (maior): ${stats.bestRank}, **ADR**: ${stats.avgDamage}, **K/D**: ${stats.kd}, **WR**: ${stats.winRatio}%.`;
+    // const messageStats = `<@${linkedDiscordId}>, **Modo**: Squad-FPP, **Rank** (maior): ${stats.bestRank}, **ADR**: ${stats.avgDamage}, **K/D**: ${stats.kd}, **WR**: ${stats.winRatio}%.`;
+    const messageStats = `Вы успешно прошли регистрацию под ником [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname})`;
     await feedbackMessage.edit(messageStats);
   }
 };

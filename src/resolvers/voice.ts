@@ -34,7 +34,6 @@ export const voiceResolver = async (client: Client, oldState: VoiceState, newSta
           kd: userDb?.stats?.kd ?? undefined,
           avgDamage: userDb?.stats?.avgDamage ?? undefined,
           bestRank: userDb?.stats?.bestRank ?? undefined,
-          winRatio: userDb?.stats?.winRatio ?? undefined,
         },
       };
 

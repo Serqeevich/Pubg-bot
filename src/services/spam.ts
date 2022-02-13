@@ -90,7 +90,7 @@ type LfsLog = {
   timestamp?: number;
 };
 
-const MINIMUM_LFS_INTERVAL = 1200000;
+const MINIMUM_LFS_INTERVAL = 300000;
 class AntiSpamLfsReactionClass {
   logs: LfsLog[];
   interval: number;

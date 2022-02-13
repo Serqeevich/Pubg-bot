@@ -50,9 +50,7 @@ export const NOT_FOUND_MESSAGE = 'Unranked';
 
 const computeConclusion = (type: EmbedType, users: LfsUsers, authorId: string, channel?: Channel | null) => {
   if (users && users.length >= 4) return ``;
-  return channel
-    ? `Para te juntares reaje com ✉️ ou envia PM <@${authorId}>`
-    : `Para convidar entra num canal e reaje com 👍 ou envia PM <@${authorId}>`;
+  return channel?.id;
 };
 
 const computeAuthorAvatar = (channel: Channel, users: LfsUsers, author?: Author) => {
@@ -76,7 +74,7 @@ const computeAuthorAvatar = (channel: Channel, users: LfsUsers, author?: Author)
 export const EmbedLookingForSomeone = ({ author, channel, users, note, footer }: LfsEmbedProps) => {
   const usersList = users?.map((user) => {
     if (user.pubgNickname === '' || user.stats === undefined) return `\n<@${user.discordId}>${NOT_FOUND_MESSAGE}`;
-    return `\n**[${user?.pubgNickname}](https://pubg.op.gg/user/${user?.pubgNickname}?discordId=${user.discordId}&nick=${user?.pubgNickname})** - ${user?.stats?.bestRank}, KD ${user?.stats?.kd}, ADR ${user?.stats?.avgDamage}, WR ${user?.stats?.winRatio}%`;
+    return `\n**[${user?.pubgNickname}](https://pubg.op.gg/user/${user?.pubgNickname}?discordId=${user.discordId}&nick=${user?.pubgNickname})** - ${user?.stats?.bestRank}, KD ${user?.stats?.kd}, ADR ${user?.stats?.avgDamage}`;
   });
 
   const missingPlayers = users ? 4 - users.length : 0;

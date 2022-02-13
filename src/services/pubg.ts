@@ -11,10 +11,10 @@ function roundHundredth(number: number) {
   return Math.round(number * 100) / 100;
 }
 
-function toPercentage(number: number) {
-  const percentage = number * 100;
-  return Math.round(percentage);
-}
+// function toPercentage(number: number) {
+//   const percentage = number * 100;
+//   return Math.round(percentage);
+// }
 
 // config
 const pubg = axios.create({
@@ -99,8 +99,11 @@ export type Stats = {
   kd: number;
   avgDamage: number;
   bestRank: PubgTier;
-  winRatio: number;
-  roundsPlayed: number;
+  currentRankPoint: number;
+  adrTPP: number;
+  adrFPP: number;
+  kdTPP: number;
+  kdFPP: number;
 };
 
 export type StatsPartial = {
@@ -165,20 +168,49 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
       data: { data },
     }: AxiosResponse<PubgPlayerResponse> = await pubg.get(url);
 
-    const pubgStats = data.attributes.rankedGameModeStats?.['squad-fpp'];
-    const roundsPlayed = get(pubgStats, 'roundsPlayed', NaN);
+    const dataSquad: any = getSquadData(playerId, seasonId);
 
-    if (roundsPlayed < MINIMUM_GAMES || pubgStats === undefined)
+    //ranked
+    const pubgRankStats = data.attributes.rankedGameModeStats?.['squad-fpp'];
+    const roundsPlayed = get(pubgRankStats, 'roundsPlayed', NaN);
+
+    //tpp
+    const pubgTPPStats = dataSquad.attributes.gameModeStats?.['squad'];
+    const roundsTPPPlayed = get(pubgTPPStats, 'roundsPlayed', NaN);
+
+    //fpp
+    const pubgFPPStats = dataSquad.attributes.gameModeStats?.['squad-fpp'];
+    const roundsFPPPlayed = get(pubgFPPStats, 'roundsPlayed', NaN);
+
+    if (roundsPlayed < MINIMUM_GAMES || pubgRankStats === undefined)
       throw new EmbedError(`É necessário jogar no mínimo ${MINIMUM_GAMES} jogos de ranked para obter as roles.`);
 
-    const wins = get(pubgStats, 'wins', NaN);
-    const damageDealt = get(pubgStats, 'damageDealt', NaN);
-    const kills = get(pubgStats, 'kills', NaN);
-    const bestRank = get(pubgStats, 'bestTier.tier', undefined);
-    const winRatio = get(pubgStats, 'winRatio', NaN);
+    const wins = get(pubgRankStats, 'wins', NaN);
+    //tpp
+    const winsTPP = get(pubgTPPStats, 'wins', NaN);
+    //fpp
+    const winsFPP = get(pubgFPPStats, 'wins', NaN);
+
+    const damageDealt = get(pubgRankStats, 'damageDealt', NaN);
+    const damageDealtTPP = get(pubgTPPStats, 'damageDealt', NaN);
+    const damageDealtFPP = get(pubgFPPStats, 'damageDealt', NaN);
+
+    const kills = get(pubgRankStats, 'kills', NaN);
+    //tpp
+    const killsTPP = get(pubgTPPStats, 'kills', NaN);
+    //fpp
+    const killsFPP = get(pubgFPPStats, 'kills', NaN);
+
+    const bestRank = get(pubgRankStats, 'currentTier.tier', undefined);
+    const currentRankPoint = get(pubgRankStats, 'currentRankPoint', undefined);
+    // const winRatio = get(pubgRankStats, 'winRatio', NaN);
 
     const kd = kills / (roundsPlayed - wins);
+    const kdTPP = killsTPP / (roundsTPPPlayed - winsTPP);
+    const kdFPP = killsFPP / (roundsFPPPlayed - winsFPP);
     const avgDamage = damageDealt / roundsPlayed;
+    const adrTPP = damageDealtTPP / roundsTPPPlayed;
+    const adrFPP = damageDealtFPP / roundsFPPPlayed;
 
     if (typeof kd !== 'number' || typeof avgDamage !== 'number') {
       throw new EmbedError(`Não foi possível obter o rank para o jogador \`${player}\``);
@@ -187,9 +219,12 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
     return {
       kd: roundHundredth(kd),
       avgDamage: roundHundredth(avgDamage),
+      currentRankPoint: currentRankPoint!,
+      adrTPP: adrTPP,
+      adrFPP: adrFPP,
+      kdTPP: kdTPP,
+      kdFPP: kdFPP,
       bestRank,
-      winRatio: toPercentage(winRatio),
-      roundsPlayed,
     };
   } catch (err: any) {
     if (err && err.response && err.response.status === 404)
@@ -199,4 +234,13 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
       throw new EmbedError(err.message);
     } else throw new Error(err);
   }
+};
+
+const getSquadData = async (playerId: string, seasonId: string) => {
+  const squadUrl = `/players/${playerId}/seasons/${seasonId}`;
+  const {
+    data: { data },
+  }: AxiosResponse<PubgPlayerResponse> = await pubg.get(squadUrl);
+
+  return data;
 };
