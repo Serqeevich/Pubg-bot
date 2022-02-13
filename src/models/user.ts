@@ -119,7 +119,6 @@ UserSchema.statics = {
 
     // get player stats from pubg api and update
     const stats = await getPlayerStats(user.pubgNickname);
-    console.log('stats', stats);
     user.stats = stats;
     await user.save();
     return user;

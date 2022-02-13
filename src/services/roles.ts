@@ -126,10 +126,10 @@ const addRoles = async (member: GuildMember, stats: Stats) => {
 
   const kdRoleName = stats.kd ? computeRoleNameFromStats(KD, stats.kd, 'R.KD', 5) : null;
   const adrRoleName = stats.avgDamage ? computeRoleNameFromStats(ADR, stats.avgDamage, 'R.ADR', 500) : null;
-  const kdRoleNameTPP = stats.kdTPP ? computeRoleNameFromStats(KD, stats.kdTPP, 'TPP KD', 5) : null;
-  const adrRoleNameTPP = stats.adrTPP ? computeRoleNameFromStats(ADR, stats.adrTPP, 'TPP ADR', 500) : null;
-  const kdRoleNameFPP = stats.kdFPP ? computeRoleNameFromStats(KD, stats.kdFPP, 'FPP KD', 5) : null;
-  const adrRoleNameFPP = stats.adrFPP ? computeRoleNameFromStats(ADR, stats.adrFPP, 'FPP ADR', 500) : null;
+  const kdRoleNameTPP = stats.kdTPP ? computeRoleNameFromStats(TPPKD, stats.kdTPP, 'TPP KD', 5) : null;
+  const adrRoleNameTPP = stats.adrTPP ? computeRoleNameFromStats(TPPADR, stats.adrTPP, 'TPP ADR', 500) : null;
+  const kdRoleNameFPP = stats.kdFPP ? computeRoleNameFromStats(FPPKD, stats.kdFPP, 'FPP KD', 5) : null;
+  const adrRoleNameFPP = stats.adrFPP ? computeRoleNameFromStats(FPPADR, stats.adrFPP, 'FPP ADR', 500) : null;
   const rankRoleName = stats.bestRank ? RANKS[stats.bestRank] : null;
   const rolesNameToBeAssigned = [
     kdRoleName,

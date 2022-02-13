@@ -194,8 +194,9 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
     const pubgFPPStats = dataSquad.attributes.gameModeStats?.['squad-fpp'];
     const roundsFPPPlayed = get(pubgFPPStats, 'roundsPlayed', NaN);
 
-    if (roundsPlayed < MINIMUM_GAMES || pubgRankStats === undefined)
-      throw new EmbedError(`É necessário jogar no mínimo ${MINIMUM_GAMES} jogos de ranked para obter as roles.`);
+    // if (roundsPlayed < MINIMUM_GAMES || pubgRankStats === undefined) {
+
+    // }
 
     const wins = get(pubgRankStats, 'wins', NaN);
     //tpp
