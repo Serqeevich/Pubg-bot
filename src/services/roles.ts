@@ -153,6 +153,7 @@ const addRoles = async (member: GuildMember, stats: Stats) => {
 
 export const addStatsRoles = async (member: GuildMember, stats: Stats) => {
   // remove previous roles
+  console.log('stats', stats);
   await removeRoles(member);
   await addRoles(member, stats);
 };

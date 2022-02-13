@@ -182,8 +182,6 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
 
     const dataSquad: any = await getSquadData(playerId, seasonId);
 
-    console.log('dataSquad', dataSquad);
-
     //ranked
     const pubgRankStats = data.attributes.rankedGameModeStats?.['squad-fpp'];
     const roundsPlayed = get(pubgRankStats, 'roundsPlayed', NaN);
@@ -232,12 +230,12 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
 
     return {
       kd: roundHundredth(kd),
-      avgDamage: roundHundredth(avgDamage),
+      avgDamage: Math.round(avgDamage),
       currentRankPoint: currentRankPoint!,
-      adrTPP: adrTPP,
-      adrFPP: adrFPP,
-      kdTPP: kdTPP,
-      kdFPP: kdFPP,
+      adrTPP: Math.round(adrTPP),
+      adrFPP: Math.round(adrFPP),
+      kdTPP: roundHundredth(kdTPP),
+      kdFPP: roundHundredth(kdFPP),
       bestRank,
     };
   } catch (err: any) {

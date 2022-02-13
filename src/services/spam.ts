@@ -64,7 +64,8 @@ class AntiSpam {
       if (msgsMatched && msgsMatched >= 2) {
         for (let i = 0; i < this.authors.length; i++) {
           if (this.authors[i].time > now - this.interval) {
-            spamDetected = true;
+            //TODO spamDetected = true;
+            spamDetected = false;
           } else if (this.authors[i].time < now - this.interval) {
             this.messageLog.splice(
               this.messageLog.findIndex((message) => message.authorId === this.authors[i].authorId),
