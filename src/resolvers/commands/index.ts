@@ -7,10 +7,8 @@ import LfsResolver from './lfs';
 import LinkResolver from './link';
 import UnlinkResolver from './unlink';
 import UpdateResolver from './update';
-import HelpResolver from './help';
-import RoleResolver from './role';
 
-// import AntiSpam from './../services/spam';
+import AntiSpam from '../../services/spam';
 
 export type CommandResolver = (client: Client, message: Message, argumentsParsed: argv.Arguments) => Promise<void>;
 
@@ -20,19 +18,17 @@ type Resolvers = {
 
 export const NOTE_LIMIT_CHARS = 120;
 export const QUOTE_REGEX = /^"(.*?)"$/;
-export const ALLOWED_ROLES = ['free agent', 'streamer'];
 
 export const resolvers: Resolvers = {
   lfs: LfsResolver,
   '+': LfsResolver,
-  '/link': LinkResolver,
-  '.link': LinkResolver,
-  '/unlink': UnlinkResolver,
+  '/reg': LinkResolver,
+  '!reg': LinkResolver,
+  '.reg': LinkResolver,
+  '/unreg': UnlinkResolver,
   update: UpdateResolver,
   '.update': UpdateResolver,
   '/update': UpdateResolver,
-  '/help': HelpResolver,
-  '/role': RoleResolver,
   '-': async (client, message) => {
     if (message.channel.id !== process.env.LFS_CHANNEL_ID) return;
 
@@ -49,12 +45,6 @@ export const resolvers: Resolvers = {
       await firstAuthorEmbedMessage?.delete();
     }
   },
-  '/order': async (client, message) => {
-    await message.delete();
-    await message.channel.send(
-      'https://media1.tenor.com/images/ff97f5136e14b88c76ea8e8488e23855/tenor.gif?itemid=13286953',
-    );
-  },
 };
 
 export const COMMANDS = Object.keys(resolvers);
@@ -68,13 +58,13 @@ export const commandsResolver = async (client: Client, message: Message) => {
   if (!COMMANDS.includes(command.toLowerCase().trim())) return null;
 
   try {
-    // AntiSpam.log(message.author.id, message.content);
-    // const isSpamDetected = await AntiSpam.checkMessageInterval(message); // Check sent messages interval
-    // if (isSpamDetected) {
-    //   await message.delete();
-    //   await message.author.send(`<@${message.author.id}>, por favor evita o spam de comandos.`);
-    //   throw new Error(`Spam detected: ${message.content} by <@${message.author.id}>`);
-    // }
+    AntiSpam.log(message.author.id, message.content);
+    const isSpamDetected = await AntiSpam.checkMessageInterval(message); // Check sent messages interval
+    if (isSpamDetected) {
+      await message.delete();
+      await message.author.send(`<@${message.author.id}>, por favor evita o spam de comandos.`);
+      throw new Error(`Spam detected: ${message.content} by <@${message.author.id}>`);
+    }
 
     const resolver = resolvers[command];
     await resolver(client, message, commandArgv);
