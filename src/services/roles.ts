@@ -124,12 +124,12 @@ export const removeRoles = async (member: GuildMember) => {
 const addRoles = async (member: GuildMember, stats: Stats) => {
   if (typeof stats.kd !== 'number' || typeof stats.avgDamage !== 'number' || typeof stats.bestRank !== 'string') return;
 
-  const kdRoleName = stats.kd ? computeRoleNameFromStats(KD, stats.kd, 'KD', 5) : null;
-  const adrRoleName = stats.avgDamage ? computeRoleNameFromStats(ADR, stats.avgDamage, 'ADR', 500) : null;
-  const kdRoleNameTPP = stats.kdTPP ? computeRoleNameFromStats(KD, stats.kdTPP, 'KD', 5) : null;
-  const adrRoleNameTPP = stats.adrTPP ? computeRoleNameFromStats(ADR, stats.adrTPP, 'ADR', 500) : null;
-  const kdRoleNameFPP = stats.kdFPP ? computeRoleNameFromStats(KD, stats.kdFPP, 'KD', 5) : null;
-  const adrRoleNameFPP = stats.adrFPP ? computeRoleNameFromStats(ADR, stats.adrFPP, 'ADR', 500) : null;
+  const kdRoleName = stats.kd ? computeRoleNameFromStats(KD, stats.kd, 'R.KD', 5) : null;
+  const adrRoleName = stats.avgDamage ? computeRoleNameFromStats(ADR, stats.avgDamage, 'R.ADR', 500) : null;
+  const kdRoleNameTPP = stats.kdTPP ? computeRoleNameFromStats(KD, stats.kdTPP, 'TPP KD', 5) : null;
+  const adrRoleNameTPP = stats.adrTPP ? computeRoleNameFromStats(ADR, stats.adrTPP, 'TPP ADR', 500) : null;
+  const kdRoleNameFPP = stats.kdFPP ? computeRoleNameFromStats(KD, stats.kdFPP, 'FPP KD', 5) : null;
+  const adrRoleNameFPP = stats.adrFPP ? computeRoleNameFromStats(ADR, stats.adrFPP, 'FPP ADR', 500) : null;
   const rankRoleName = stats.bestRank ? RANKS[stats.bestRank] : null;
   const rolesNameToBeAssigned = [
     kdRoleName,
