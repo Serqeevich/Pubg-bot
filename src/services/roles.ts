@@ -1,5 +1,5 @@
 import { Guild, RoleData, GuildMember } from 'discord.js';
-import { PubgTier, StatsPartial } from './pubg';
+import { PubgTier, Stats, StatsPartial } from './pubg';
 import { findClosestNumber } from '../utils/helpers';
 
 type Roles = RoleData[];
@@ -31,6 +31,38 @@ export const KD = {
   '1': 'R.KD 1',
 };
 
+export const TPPADR = {
+  '500': 'TPP ADR 500',
+  '400': 'TPP ADR 400',
+  '300': 'TPP ADR 300',
+  '200': 'TPP ADR 200',
+  '100': 'TPP ADR 100',
+};
+
+export const TPPKD = {
+  '5': 'TPP KD 5',
+  '4': 'TPP KD 4',
+  '3': 'TPP KD 3',
+  '2': 'TPP KD 2',
+  '1': 'TPP KD 1',
+};
+
+export const FPPADR = {
+  '500': 'FPP ADR 500',
+  '400': 'FPP ADR 400',
+  '300': 'FPP ADR 300',
+  '200': 'FPP ADR 200',
+  '100': 'FPP ADR 100',
+};
+
+export const FPPKD = {
+  '5': 'FPP KD 5',
+  '4': 'FPP KD 4',
+  '3': 'FPP KD 3',
+  '2': 'FPP KD 2',
+  '1': 'FPP KD 1',
+};
+
 const ROLES: Roles = [
   { name: RANKS.Master, color: [0, 255, 109] },
   { name: RANKS.Diamond, color: [9, 249, 255] },
@@ -48,6 +80,26 @@ const ROLES: Roles = [
   { name: KD['3'], color: [147, 112, 219] },
   { name: KD['4'], color: [147, 112, 219] },
   { name: KD['5'], color: [147, 112, 219] },
+  { name: TPPADR['500'], color: [230, 76, 61], hoist: true },
+  { name: TPPADR['400'], color: [234, 120, 44], hoist: true },
+  { name: TPPADR['300'], color: [237, 154, 32], hoist: true },
+  { name: TPPADR['200'], color: [125, 225, 127], hoist: true },
+  { name: TPPADR['100'], color: [125, 225, 127], hoist: true },
+  { name: TPPKD['1'], color: [147, 112, 219] },
+  { name: TPPKD['2'], color: [147, 112, 219] },
+  { name: TPPKD['3'], color: [147, 112, 219] },
+  { name: TPPKD['4'], color: [147, 112, 219] },
+  { name: TPPKD['5'], color: [147, 112, 219] },
+  { name: FPPADR['500'], color: [230, 76, 61], hoist: true },
+  { name: FPPADR['400'], color: [234, 120, 44], hoist: true },
+  { name: FPPADR['300'], color: [237, 154, 32], hoist: true },
+  { name: FPPADR['200'], color: [125, 225, 127], hoist: true },
+  { name: FPPADR['100'], color: [125, 225, 127], hoist: true },
+  { name: FPPKD['1'], color: [147, 112, 219] },
+  { name: FPPKD['2'], color: [147, 112, 219] },
+  { name: FPPKD['3'], color: [147, 112, 219] },
+  { name: FPPKD['4'], color: [147, 112, 219] },
+  { name: FPPKD['5'], color: [147, 112, 219] },
 ];
 
 type RoleGeneric = typeof RANKS | typeof KD | typeof ADR;
@@ -69,13 +121,25 @@ export const removeRoles = async (member: GuildMember) => {
   await Promise.all(removeRolesPromises);
 };
 
-const addRoles = async (member: GuildMember, stats: StatsPartial) => {
+const addRoles = async (member: GuildMember, stats: Stats) => {
   if (typeof stats.kd !== 'number' || typeof stats.avgDamage !== 'number' || typeof stats.bestRank !== 'string') return;
 
   const kdRoleName = stats.kd ? computeRoleNameFromStats(KD, stats.kd, 'KD', 5) : null;
   const adrRoleName = stats.avgDamage ? computeRoleNameFromStats(ADR, stats.avgDamage, 'ADR', 500) : null;
+  const kdRoleNameTPP = stats.kdTPP ? computeRoleNameFromStats(KD, stats.kd, 'KD', 5) : null;
+  const adrRoleNameTPP = stats.adrTPP ? computeRoleNameFromStats(ADR, stats.avgDamage, 'ADR', 500) : null;
+  const kdRoleNameFPP = stats.kdFPP ? computeRoleNameFromStats(KD, stats.kd, 'KD', 5) : null;
+  const adrRoleNameFPP = stats.kdFPP ? computeRoleNameFromStats(ADR, stats.avgDamage, 'ADR', 500) : null;
   const rankRoleName = stats.bestRank ? RANKS[stats.bestRank] : null;
-  const rolesNameToBeAssigned = [kdRoleName, adrRoleName, rankRoleName].filter((role) => role !== null);
+  const rolesNameToBeAssigned = [
+    kdRoleName,
+    adrRoleName,
+    rankRoleName,
+    kdRoleNameTPP,
+    adrRoleNameTPP,
+    kdRoleNameFPP,
+    adrRoleNameFPP,
+  ].filter((role) => role !== null);
   const roles = await member.guild.roles.fetch();
 
   // add new stats roles
@@ -87,7 +151,7 @@ const addRoles = async (member: GuildMember, stats: StatsPartial) => {
   await Promise.all(addRolesPromises);
 };
 
-export const addStatsRoles = async (member: GuildMember, stats: StatsPartial) => {
+export const addStatsRoles = async (member: GuildMember, stats: Stats) => {
   // remove previous roles
   await removeRoles(member);
   await addRoles(member, stats);

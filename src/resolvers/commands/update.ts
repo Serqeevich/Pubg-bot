@@ -6,7 +6,7 @@ import { addStatsRoles } from '../../services/roles';
 const UpdateResolver: CommandResolver = async (client, message) => {
   if (message.channel.id !== process.env.ROLES_CHANNEL_ID) return;
 
-  const feedbackMessage = await message.channel.send('A atualizar...');
+  const feedbackMessage = await message.channel.send('Подождите...');
 
   const updatedUser = await User.updatePubgStats({
     discordId: message.author.id,

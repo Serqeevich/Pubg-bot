@@ -95,6 +95,18 @@ type PubgPlayerResponse = {
   };
 };
 
+type PubgSquadResponse = {
+  data: {
+    type: string;
+    attributes: {
+      gameModeStats?: {
+        'squad-fpp'?: PubgRankedStats;
+        squad?: PubgRankedStats;
+      };
+    };
+  };
+};
+
 export type Stats = {
   kd: number;
   avgDamage: number;
@@ -170,6 +182,8 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
 
     const dataSquad: any = getSquadData(playerId, seasonId);
 
+    console.log('dataSquad', dataSquad);
+
     //ranked
     const pubgRankStats = data.attributes.rankedGameModeStats?.['squad-fpp'];
     const roundsPlayed = get(pubgRankStats, 'roundsPlayed', NaN);
@@ -240,7 +254,7 @@ const getSquadData = async (playerId: string, seasonId: string) => {
   const squadUrl = `/players/${playerId}/seasons/${seasonId}`;
   const {
     data: { data },
-  }: AxiosResponse<PubgPlayerResponse> = await pubg.get(squadUrl);
+  }: AxiosResponse<PubgSquadResponse> = await pubg.get(squadUrl);
 
   return data;
 };
