@@ -112,6 +112,7 @@ export type Stats = {
   kd: number;
   avgDamage: number;
   bestRank: PubgTier;
+  subTier: number;
   currentRankPoint: number;
   adrTPP: number;
   adrFPP: number;
@@ -199,23 +200,24 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
     //
     // }
 
-    const wins = get(pubgRankStats, 'wins', NaN);
+    const wins = get(pubgRankStats, 'wins', 0);
     //tpp
-    const winsTPP = get(pubgTPPStats, 'wins', NaN);
+    const winsTPP = get(pubgTPPStats, 'wins', 0);
     //fpp
-    const winsFPP = get(pubgFPPStats, 'wins', NaN);
+    const winsFPP = get(pubgFPPStats, 'wins', 0);
 
-    const damageDealt = get(pubgRankStats, 'damageDealt', NaN);
-    const damageDealtTPP = get(pubgTPPStats, 'damageDealt', NaN);
-    const damageDealtFPP = get(pubgFPPStats, 'damageDealt', NaN);
+    const damageDealt = get(pubgRankStats, 'damageDealt', 0);
+    const damageDealtTPP = get(pubgTPPStats, 'damageDealt', 0);
+    const damageDealtFPP = get(pubgFPPStats, 'damageDealt', 0);
 
-    const kills = get(pubgRankStats, 'kills', NaN);
+    const kills = get(pubgRankStats, 'kills', 0);
     //tpp
-    const killsTPP = get(pubgTPPStats, 'kills', NaN);
+    const killsTPP = get(pubgTPPStats, 'kills', 0);
     //fpp
-    const killsFPP = get(pubgFPPStats, 'kills', NaN);
+    const killsFPP = get(pubgFPPStats, 'kills', 0);
 
     const bestRank = get(pubgRankStats, 'currentTier.tier', undefined);
+    const subTier = get(pubgRankStats, 'currentTier.subTier', undefined);
     const currentRankPoint = get(pubgRankStats, 'currentRankPoint', undefined);
     // const winRatio = get(pubgRankStats, 'winRatio', NaN);
 
@@ -238,6 +240,7 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
       adrFPP: Math.round(adrFPP),
       kdTPP: roundHundredth(kdTPP),
       kdFPP: roundHundredth(kdFPP),
+      subTier,
       bestRank,
     };
   } catch (err: any) {

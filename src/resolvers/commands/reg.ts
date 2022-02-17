@@ -69,7 +69,7 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
     if (!member) throw new EmbedError('Utilizador não encontrado no servidor');
     await addStatsRoles(member, stats);
     // const messageStats = `<@${linkedDiscordId}>, **Modo**: Squad-FPP, **Rank** (maior): ${stats.bestRank}, **ADR**: ${stats.avgDamage}, **K/D**: ${stats.kd}, **WR**: ${stats.winRatio}%.`;
-    const messageStats = `Вы успешно прошли регистрацию под ником [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname})`;
+    const messageStats = `Вы успешно прошли регистрацию под ником [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) ${stats.bestRank} ${stats.subTier}`;
     await feedbackMessage.edit(messageStats);
   }
 };

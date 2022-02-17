@@ -4,7 +4,7 @@ import { EmbedErrorMessage } from '../../embeds/Error';
 import { parseAuthorIdFromLfsEmbed } from '../../utils/embeds';
 import { logError } from '../../services/logs';
 import LfsResolver from './lfs';
-import LinkResolver from './link';
+import LinkResolver from './reg';
 import UnlinkResolver from './unlink';
 import UpdateResolver from './update';
 
