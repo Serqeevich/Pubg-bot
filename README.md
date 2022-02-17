@@ -1,6 +1,6 @@
 # Pubg-bot
 
-### How do I get set up?
+### Как установить?
 
 Don't be a crybaby: clone, install and run the commands
 
@@ -13,17 +13,17 @@ Don't be a crybaby: clone, install and run the commands
 
 ## Bot
 
-This bot aims to be used in the PUBG PT discord community. The plan is to make a LFS system and automatic roles according to PUBG ranked games stats.
+Этот бот разрабатывается для дискорд сообщества Pubg GO TOP.
 
 ### Server installation
 
-Add the bot the server, to do so visit the link: `https://discord.com/oauth2/authorize?client_id=BOT_CLIENT_ID&scope=bot`
+Добавить бота на сервер: `https://discord.com/oauth2/authorize?client_id=BOT_CLIENT_ID&scope=bot`
 
-### Available commands
+### Доступные команды
 
-| Command                          | Channel            | Description                                                                                                                                                         |
+| Команда                          | Канал            | Описание                                                                                                                                                         |
 |----------------------------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `!invite` or `!invite "note"`            | `LFS_CHANNEL_ID`   | Creates a LFS embed with a possible note                                                                                                                                                |
+| `!invite` or `!invite "note"`            | `Поиск`   | Creates a LFS embed with a possible note                                                                                                                                                |
 | `-`                              | `LFS_CHANNEL_ID`   | Deletes the last LFS embed of the author                                                                                                                            |
 | `!reg PUBG_NICKNAME`            | `ROLES_CHANNEL_ID` | Assigns a pubg nickname to the author and roles according to stats                                                                                                  |
 | `/role "ROLE_NAME"`            | `ROLES_CHANNEL_ID` | Assigns a free agent role to user                                                                                                  |
