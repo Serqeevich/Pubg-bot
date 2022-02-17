@@ -9,26 +9,26 @@ const UnlinkResolver: CommandResolver = async (client, message, argumentsParsed)
   if (!isAdminChannel) return;
 
   const pubgNickname = argumentsParsed._[1] || '';
-  const command = `\`/unlink PUBG_NICKNAME\``;
+  const command = `\`!unreg PUBG_NICK\``;
 
   if (pubgNickname === '') {
     throw new EmbedError(
-      `<@${message.author.id}> para desassociar a conta é necessário dizer o nome no pubg, exemplo:  ${command}`,
+      `<@${message.author.id}> что бы отвязать аккаунт введите игровой никнейм, пример:  ${command}`,
     );
   }
 
-  const feedbackMessage = await message.channel.send('A desassociar conta...');
+  const feedbackMessage = await message.channel.send('Отвязка аккаунта <a:InProg:942799681019314226>');
   const { discordId } = await User.deleteByPubgAccount(pubgNickname);
 
   const member = await message.guild?.members.fetch(discordId);
   if (member) {
     await removeRoles(member);
-    await message.channel.send(`Roles de <@${discordId}> removidas.`);
+    //await message.channel.send(`<@${discordId}> ваши роли удалены.`);
   }
 
   await feedbackMessage.edit(
     EmbedSuccessMessage(
-      `Desassociaste a conta [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) à conta de Discord <@${discordId}>`,
+      `Игровая учетная запись [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) отвязана от аккаунта Discord <@${discordId}>`,
     ),
   );
 };

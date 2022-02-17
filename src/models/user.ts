@@ -92,7 +92,7 @@ UserSchema.statics = {
       if (force && userWithNick.discordId !== discordId) {
         await userWithNick.delete();
       } else {
-        throw new EmbedError(`<@${userWithNick.discordId}> já está ligado a esta conta de pubg **${pubgNickname}**.`);
+        throw new EmbedError(`<@${userWithNick.discordId}> уже привязан к этому аккаунту **${pubgNickname}**.`);
       }
     }
 
@@ -113,7 +113,7 @@ UserSchema.statics = {
     const user: UserDocument = await this.findOne({ discordId });
     if (!user) {
       throw new EmbedError(
-        `<@${discordId}> tens de ligar a tua conta do Discord ao PUBG, usa o comando \`/link NICK_DO_PUBG\`.`,
+        `Вам необходимо привязать игровую учетную запись!\n Используйте команду \`!reg PUBG_NICK\``,  //<@${discordId}>  - вырезал упоминание внутри эмбеда.
       );
     }
 

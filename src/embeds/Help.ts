@@ -4,23 +4,21 @@ export const HelpMessageLfs = (channel: string) =>
 `;
 
 export const HelpMessageDefault = (rolesChannel: string, lfsChannel: string, availableRoles: string[]) => `
-Приветствую Виживший! Sou um 🤖 bot desenvolvido para a comunidade portuguesa de PUBG de modo a facilitar a procura de jogadores.
 
 Neste canal ${rolesChannel} escreve \`/link PUBG_NICKNAME\` substituindo \`PUBG_NICKNAME\` pelo nome da tua conta de modo a receber os roles e stats no discord.
 ${HelpMessageLfs(lfsChannel)}
-Usa \`/update\` no canal ${rolesChannel} para atualizar as estatísticas.
-Usa \`/role "NOME_DA_ROLE"\` no canal ${rolesChannel} para adicionar ou remover uma role. Roles disponíveis: ${availableRoles
+Испоьзуйте  \`!update\` в канале ${rolesChannel} для получения ролей на основании вашей игровой/* статистики.
+Используйте \`/role "NOME_DA_ROLE"\` в канале ${rolesChannel} что бы добавить или удалить роль: ${availableRoles
   .map((r) => `\`"${r}"\``)
   .join(',')}
-Usa \`/help\` em cada canal para obter ajuda.
+Используйте \`/help\` в нужном канале для получения подробной информации.
 `;
 
 export const HelpMessageAdmin = () => `
-Enquanto admin tens acesso a alguns comandos adicionais para usar neste canal.
+Как администратор, у вас есть доступ к некоторым дополнительным командам для использования в этом канале.
 
-\`/link PUBG_NICKNAME DISCORD_ID\`, associa uma conta de pubg a uma conta do discord, se outro utilizador associou a conta anteriormente remove as roles deste.
+Используйте \`!reg PUBG_NICK DISCORD_ID\`, что бы привязать пользователя дискорд к учетной записи Pubg.
 
-\`/unlink PUBG_NICKNAME\`, desassocia um utilizador do discord a uma conta de PUBG, remove as roles de stats deste.
+Используйте \`!unreg PUBG_NICK\`, что бы отвязать пользователя дискорд от учетной записи Pubg.
 
-Neste canal também aparecem os erros que surgem para efeito de debug e monitorização.
 `;

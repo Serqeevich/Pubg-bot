@@ -16,7 +16,7 @@ export const triggers: Triggers = {
   lousyWords: {
     words: ['merda', 'caralho', 'crl', 'puta', 'fodase', 'foda-se'],
     resolver: async (client, message) => {
-      await message.reply('Olha ai o palavreado! https://i.imgur.com/CPLrQoP.jpg');
+      await message.reply('Посмотрите на формулировку!! https://i.imgur.com/CPLrQoP.jpg');
     },
   },
 };

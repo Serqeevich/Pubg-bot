@@ -7,13 +7,16 @@ import { voiceResolver } from './resolvers/voice';
 import mongo from './services/database';
 import setupRoles from './services/roles';
 
+
+
+
 dotenv.config();
 const client = new Client({ partials: ['GUILD_MEMBER', 'USER', 'REACTION'] });
 
 client.login(process.env.DISCORDJS_BOT_TOKEN);
 
 client.on('ready', async () => {
-  console.log(`${client?.user?.tag} has logged in.`);
+  console.log(`${client?.user?.tag} в сети.`);
 
   // connect to db
   await mongo();

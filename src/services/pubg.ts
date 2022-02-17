@@ -140,7 +140,7 @@ const getCurrentSeason = async (): Promise<PubgSeason> => {
 
 const getPlayerId = async (player: string): Promise<string> => {
   const url = `/players?filter[playerNames]=${player}`;
-  if (typeof player !== 'string' || !player) throw new Error('Missing player name');
+  if (typeof player !== 'string' || !player) throw new Error('Игрок с таким никнеймом не найден');
   try {
     const {
       data: { data },
@@ -148,17 +148,17 @@ const getPlayerId = async (player: string): Promise<string> => {
     const accountId = data[0].id || null;
     if (!accountId)
       throw new EmbedError(
-        `Não encontramos nenhum jogador com o nickname \`${player}\`. Tens de escrever o nome do PUBG com as letras exatamente iguais ao PUBG (minúsculas e maiúsculas).`,
+        `Игрок с ником \`${player}\`. не найден. Вы должны ввести игровой никнейм в точности как в игре.`,
       );
     return accountId;
   } catch (err: any) {
     if (err && err.response && err.response.status && err.response.status === 404)
       throw new EmbedError(
-        `Não encontramos nenhum jogador com o nickname \`${player}\`.  Tens de escrever o nome do PUBG com as letras exatamente iguais ao PUBG (minúsculas e maiúsculas).`,
+        `Игрок с ником \`${player}\` не найден. Вы должны ввести игровой никнейм в точности как в игре.`,
       );
 
     if (err && err.response && err.response.status && err.response.status === 429)
-      throw new EmbedError(`✋ Para evitar spam à API do PUBG por favor esperem 1 minuto ⏱ e tentem de novo!`);
+      throw new EmbedError(`Превышен лимит запросов к API pubg, подождите 1 минуту что бы отправить новый запрос!`);
     else throw Error(err);
   }
 };
@@ -169,7 +169,7 @@ const getPlayerId = async (player: string): Promise<string> => {
  * @returns {promise}
  */
 export const getPlayerStats = async (player: string): Promise<Stats> => {
-  if (typeof player !== 'string' || !player) throw Error('Missing player name');
+  if (typeof player !== 'string' || !player) throw Error('Игрок с таким никнеймом не найден');
 
   try {
     const { id: seasonId } = await getCurrentSeason();
@@ -225,8 +225,10 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
     const adrTPP = damageDealtTPP / roundsTPPPlayed;
     const adrFPP = damageDealtFPP / roundsFPPPlayed;
 
+  
+
     if (typeof kd !== 'number' || typeof avgDamage !== 'number') {
-      throw new EmbedError(`Não foi possível obter o rank para o jogador \`${player}\``);
+      throw new EmbedError(`Невозможно получить ранг для игрока \`${player}\``);
     }
 
     return {
@@ -241,7 +243,7 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
     };
   } catch (err: any) {
     if (err && err.response && err.response.status === 404)
-      throw new EmbedError(`É necessário jogar no mínimo ${MINIMUM_GAMES} jogos de ranked para obter as roles.`);
+      throw new EmbedError(`Вы должны сыграть минимум  ${MINIMUM_GAMES} для получения ролей.`);
 
     if (err.name === 'EmbedError') {
       throw new EmbedError(err.message);
