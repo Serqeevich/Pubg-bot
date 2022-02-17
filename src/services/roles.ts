@@ -124,7 +124,7 @@ export const removeRoles = async (member: GuildMember) => {
 };
 
 const addRoles = async (member: GuildMember, stats: Stats) => {
-  if (typeof stats.kd !== 'number' || typeof stats.avgDamage !== 'number' || typeof stats.bestRank !== 'string') return;
+  // if (typeof stats.kd !== 'number' || typeof stats.avgDamage !== 'number' || typeof stats.bestRank !== 'string') return;
 
   let rankRoleName;
   let kdRoleName;

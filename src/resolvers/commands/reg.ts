@@ -66,9 +66,11 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
     // const messageStats = `<@${linkedDiscordId}>, **Modo**: Squad-FPP, **Rank** (maior): ${stats.bestRank}, **ADR**: ${stats.avgDamage}, **K/D**: ${stats.kd}, **WR**: ${stats.winRatio}%.`;
     const messageStats = `Вы успешно прошли регистрацию под ником [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) ${
       stats!.bestRank
-    } ${stats?.subTier}`;
+    } ${stats?.subTier ? stats?.subTier : ''}`;
     await feedbackMessage.edit(messageStats);
   }
 };
 
 export default LinkResolver;
+
+// ${stats?.subTier ? stats?.subTier : ''}
