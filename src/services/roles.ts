@@ -131,7 +131,7 @@ const addRoles = async (member: GuildMember, stats: Stats) => {
   let adrRoleName;
   //unranked
   if (isNaN(stats.kd) || isNaN(stats.avgDamage)) {
-    rankRoleName = RANKS[6];
+    rankRoleName = RANKS['Unranked'];
   } else {
     rankRoleName = stats.bestRank ? RANKS[stats.bestRank] : null;
     kdRoleName = stats.kd ? computeRoleNameFromStats(KD, stats.kd, 'R.KD', 5) : null;
