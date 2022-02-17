@@ -42,6 +42,7 @@ export enum Tier {
   Gold,
   Silver,
   Bronze,
+  Unranked,
 }
 
 export type PubgTier = keyof typeof Tier | string;
@@ -195,7 +196,7 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
     const roundsFPPPlayed = get(pubgFPPStats, 'roundsPlayed', NaN);
 
     // if (roundsPlayed < MINIMUM_GAMES || pubgRankStats === undefined) {
-
+    //
     // }
 
     const wins = get(pubgRankStats, 'wins', NaN);
@@ -224,8 +225,6 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
     const avgDamage = damageDealt / roundsPlayed;
     const adrTPP = damageDealtTPP / roundsTPPPlayed;
     const adrFPP = damageDealtFPP / roundsFPPPlayed;
-
-  
 
     if (typeof kd !== 'number' || typeof avgDamage !== 'number') {
       throw new EmbedError(`Невозможно получить ранг для игрока \`${player}\``);

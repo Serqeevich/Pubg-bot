@@ -1,5 +1,5 @@
-import { Guild, RoleData, GuildMember } from 'discord.js';
-import { PubgTier, Stats, StatsPartial } from './pubg';
+import { Guild, GuildMember, RoleData } from 'discord.js';
+import { PubgTier, Stats } from './pubg';
 import { findClosestNumber } from '../utils/helpers';
 
 type Roles = RoleData[];
@@ -13,6 +13,7 @@ export const RANKS: {
   Gold: 'Gold',
   Silver: 'Silver',
   Bronze: 'Bronze',
+  Unranked: 'Unranked',
 };
 
 export const ADR = {
@@ -70,6 +71,7 @@ const ROLES: Roles = [
   { name: RANKS.Gold, color: [214, 177, 99] },
   { name: RANKS.Silver, color: [121, 138, 150] },
   { name: RANKS.Bronze, color: [153, 110, 86] },
+  { name: RANKS.Unranked, color: [153, 110, 86] },
   { name: ADR['500'], color: [230, 76, 61], hoist: true },
   { name: ADR['400'], color: [234, 120, 44], hoist: true },
   { name: ADR['300'], color: [237, 154, 32], hoist: true },
@@ -124,13 +126,23 @@ export const removeRoles = async (member: GuildMember) => {
 const addRoles = async (member: GuildMember, stats: Stats) => {
   if (typeof stats.kd !== 'number' || typeof stats.avgDamage !== 'number' || typeof stats.bestRank !== 'string') return;
 
-  const kdRoleName = stats.kd ? computeRoleNameFromStats(KD, stats.kd, 'R.KD', 5) : null;
-  const adrRoleName = stats.avgDamage ? computeRoleNameFromStats(ADR, stats.avgDamage, 'R.ADR', 500) : null;
+  let rankRoleName;
+  let kdRoleName;
+  let adrRoleName;
+  //unranked
+  if (isNaN(stats.kd) || isNaN(stats.avgDamage)) {
+    rankRoleName = RANKS[6];
+  } else {
+    rankRoleName = stats.bestRank ? RANKS[stats.bestRank] : null;
+    kdRoleName = stats.kd ? computeRoleNameFromStats(KD, stats.kd, 'R.KD', 5) : null;
+    adrRoleName = stats.avgDamage ? computeRoleNameFromStats(ADR, stats.avgDamage, 'R.ADR', 500) : null;
+  }
+
   const kdRoleNameTPP = stats.kdTPP ? computeRoleNameFromStats(TPPKD, stats.kdTPP, 'TPP KD', 5) : null;
   const adrRoleNameTPP = stats.adrTPP ? computeRoleNameFromStats(TPPADR, stats.adrTPP, 'TPP ADR', 500) : null;
   const kdRoleNameFPP = stats.kdFPP ? computeRoleNameFromStats(FPPKD, stats.kdFPP, 'FPP KD', 5) : null;
   const adrRoleNameFPP = stats.adrFPP ? computeRoleNameFromStats(FPPADR, stats.adrFPP, 'FPP ADR', 500) : null;
-  const rankRoleName = stats.bestRank ? RANKS[stats.bestRank] : null;
+
   const rolesNameToBeAssigned = [
     kdRoleName,
     adrRoleName,
