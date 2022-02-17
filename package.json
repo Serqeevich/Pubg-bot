@@ -8,6 +8,7 @@
   "scripts": {
     "commit": "git-cz",
     "start:dev": "nodemon dist/bot.js",
+    "start:dev-debug": "nodemon --inspect dist/bot.js",
     "start": "node dist/bot.js",
     "build": "tsc",
     "postintall": "npm run build",
