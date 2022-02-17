@@ -23,11 +23,11 @@ Add the bot the server, to do so visit the link: `https://discord.com/oauth2/aut
 
 | Command                          | Channel            | Description                                                                                                                                                         |
 |----------------------------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `lfs` or `lfs "note"`            | `LFS_CHANNEL_ID`   | Creates a LFS embed with a possible note                                                                                                                                                |
+| `!invite` or `!invite "note"`            | `LFS_CHANNEL_ID`   | Creates a LFS embed with a possible note                                                                                                                                                |
 | `-`                              | `LFS_CHANNEL_ID`   | Deletes the last LFS embed of the author                                                                                                                            |
-| `/link PUBG_NICKNAME`            | `ROLES_CHANNEL_ID` | Assigns a pubg nickname to the author and roles according to stats                                                                                                  |
+| `!reg PUBG_NICKNAME`            | `ROLES_CHANNEL_ID` | Assigns a pubg nickname to the author and roles according to stats                                                                                                  |
 | `/role "ROLE_NAME"`            | `ROLES_CHANNEL_ID` | Assigns a free agent role to user                                                                                                  |
-| `/update`                        | `ROLES_CHANNEL_ID` | Updates user pubg stats for users already linked                                                                                                                    |
+| `!update`                        | `ROLES_CHANNEL_ID` | Updates user pubg stats for users already linked                                                                                                                    |
 | `/link PUBG_NICKNAME DISCORD_ID` | `ADMIN_CHANNEL_ID` | Assigns a pubg nickname to the user of the discord id and roles according to stats, if someone is linked to that pubg account he will be unlinked and roles removed |
 | `/unlink PUBG_NICKNAME`          | `ADMIN_CHANNEL_ID` | If someone is linked to that pubg account he will be unlinked and roles removed                                                                                     |
 | `/help`                          | `LFS_CHANNEL_ID`, `ROLES_CHANNELL_ID`, `ADMIN_CHANNEL_ID`      | Sends a PM to the User with a General Guide to the bot commands, or sends message with help commands.                       |
@@ -42,11 +42,11 @@ The first thing a user must do is link their discord account to a pubg account b
 
 ### 1. Link
 
-`/link PUBG_NAME`
+`!reg PUBG_NAME`
 
 This command will fetch the users stats directly from the PUBG API there's a minimum of 20 games required in order to provide the roles.
 
-`/link PUBG_NAME DISCORD_ID`
+`/!reg PUBG_NAME DISCORD_ID`
 
 Admin command, same as previous but assigns the stats of the PUBG_NAME to the user of the DISCORD_ID. Used to avoid false linking.
 
@@ -59,7 +59,7 @@ Admin command, same as previous but assigns the stats of the PUBG_NAME to the us
 
 ### 2. Looking for someone
 
-`lfs`
+`!invite`
 
 By typing `lfs` on the `looking-for-someone` channel the bot will create a LFS Embed, if someone reacts with a `✉️` it will send a PM to the author of the `lfs` with the request, the author can accept or decline the request and the interested party will be notified with a PM.
 
