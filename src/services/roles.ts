@@ -163,11 +163,11 @@ const addRoles = async (member: GuildMember, stats: Stats) => {
   await Promise.all(addRolesPromises);
 };
 
-export const addStatsRoles = async (member: GuildMember, stats: Stats) => {
+export const addStatsRoles = async (member: GuildMember, stats: Stats | null | undefined) => {
   // remove previous roles
   console.log('addStatsRoles', stats);
   await removeRoles(member);
-  await addRoles(member, stats);
+  if (stats) await addRoles(member, stats);
 };
 
 export default async (guild: Guild) => {
