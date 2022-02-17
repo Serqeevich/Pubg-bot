@@ -46,12 +46,7 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
     ),
   );
 
-  if (
-    typeof stats?.bestRank === 'string' &&
-    typeof stats?.avgDamage === 'number' &&
-    typeof stats?.kd === 'number' &&
-    message?.member
-  ) {
+  if (message?.member) {
     // remove roles from user that had the nickname before forced change
     if (isAdminCommand && oldUser?.discordId) {
       const oldMember = await message.guild?.members.fetch(oldUser.discordId);
@@ -69,7 +64,9 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
     if (!member) throw new EmbedError('Utilizador não encontrado no servidor');
     await addStatsRoles(member, stats);
     // const messageStats = `<@${linkedDiscordId}>, **Modo**: Squad-FPP, **Rank** (maior): ${stats.bestRank}, **ADR**: ${stats.avgDamage}, **K/D**: ${stats.kd}, **WR**: ${stats.winRatio}%.`;
-    const messageStats = `Вы успешно прошли регистрацию под ником [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) ${stats.bestRank} ${stats.subTier}`;
+    const messageStats = `Вы успешно прошли регистрацию под ником [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) ${
+      stats!.bestRank
+    } ${stats?.subTier}`;
     await feedbackMessage.edit(messageStats);
   }
 };
