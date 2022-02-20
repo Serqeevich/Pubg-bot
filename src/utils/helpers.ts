@@ -1,12 +1,11 @@
 import { UserDocument } from './../models/user';
 import { Collection, GuildMember, MessageEmbed, Snowflake } from 'discord.js';
-import { LfsUsers } from './../embeds/LookingForSomeone';
 import qs from 'query-string';
 
 export const findClosestNumber = (available: number[], goal: number): number => {
   let score = 0;
   available.forEach((v) => {
-    if (goal > v) {
+    if (goal >= v) {
       score = v;
     }
   });
@@ -71,7 +70,7 @@ export const computeChannelUsers = (
   members: Collection<Snowflake, GuildMember>,
   users: UserDocument[],
   authorDiscordId: string,
-): LfsUsers => {
+) => {
   const userWithData = members.map((member) => {
     const document = users.find((user) => user.discordId === member.id);
     return computeUserPartialFromDocument(member.id, document);

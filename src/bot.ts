@@ -1,14 +1,10 @@
 import { Client } from 'discord.js';
 import dotenv from 'dotenv';
 import { commandsResolver } from './resolvers/commands/index';
-import { reactionsResolver } from './resolvers/reactions';
 import { triggersResolver } from './resolvers/triggers';
-import { voiceResolver } from './resolvers/voice';
+import { voiceResolver } from './resolvers/changeMembersListener';
 import mongo from './services/database';
 import setupRoles from './services/roles';
-
-
-
 
 dotenv.config();
 const client = new Client({ partials: ['GUILD_MEMBER', 'USER', 'REACTION'] });
@@ -37,14 +33,14 @@ client.on('message', async (message) => {
   await triggersResolver(client, message);
 });
 
-client.on('messageReactionAdd', async (reaction, user) => {
-  if (user.bot) return;
-  const messageIsEmbed = Boolean(reaction.message.embeds.length > 0);
+// client.on('messageReactionAdd', async (reaction, user) => {
+//   if (user.bot) return;
+//   const messageIsEmbed = Boolean(reaction.message.embeds.length > 0);
 
-  if (messageIsEmbed) {
-    reactionsResolver(client, reaction, user);
-  }
-});
+// if (messageIsEmbed) {
+//   reactionsResolver(client, reaction, user);
+// }
+// });
 
 client.on('voiceStateUpdate', async (oldState, newState) => {
   await voiceResolver(client, oldState, newState);

@@ -188,8 +188,8 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
     const pubgRankStats = data.attributes.rankedGameModeStats?.['squad-fpp'];
     const roundsPlayed = get(pubgRankStats, 'roundsPlayed', NaN);
 
-    console.log(data)
-    
+    console.log(data);
+
     //tpp
     const pubgTPPStats = dataSquad.attributes.gameModeStats?.['squad'];
     const roundsTPPPlayed = get(pubgTPPStats, 'roundsPlayed', NaN);

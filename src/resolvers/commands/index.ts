@@ -25,10 +25,10 @@ export const resolvers: Resolvers = {
   '/reg': LinkResolver,
   '!reg': LinkResolver,
   '.reg': LinkResolver,
-  '/unreg': UnlinkResolver,
+  '!unreg': UnlinkResolver,
   update: UpdateResolver,
   '.update': UpdateResolver,
-  '/update': UpdateResolver,
+  '!update': UpdateResolver,
   '-': async (client, message) => {
     if (message.channel.id !== process.env.LFS_CHANNEL_ID) return;
 

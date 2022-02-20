@@ -1,14 +1,14 @@
-import { MessageEmbed, Collection, Snowflake, Message } from 'discord.js';
+import { Collection, Message, MessageEmbed, Snowflake } from 'discord.js';
 import {
-  parseUserIdFromMention,
-  parseUserIdFromQueryString,
-  parsePubgNickFromQueryString,
   parseAllMentionsIds,
   parseChannelFromLfsEmbed,
   parseDiscordAvatarIdFromUrl,
+  parsePubgNickFromQueryString,
+  parseUserIdFromMention,
+  parseUserIdFromQueryString,
 } from './helpers';
-import { NOT_FOUND_MESSAGE, LfsEmbedProps } from './../embeds/LookingForSomeone';
 import { StatsPartial, Tier } from './../services/pubg';
+import { LfsEmbedProps } from '../resolvers/changeMembersListener';
 
 const BLOQUOTE = /\> (.*$)/im;
 
@@ -30,8 +30,8 @@ export const parseAuthorIdFromLfsEmbed = (embed: MessageEmbed) => {
 
 export const isLfsTeamEmbed = (embed: MessageEmbed) => {
   const hasIconURL = embed && embed.author && embed.author.iconURL;
-  const hasType = embed && embed.footer && embed.footer?.text === 'lfs';
-  return hasIconURL && hasType;
+  // const hasType = embed && embed.footer && embed.footer?.text === 'lfs';
+  return hasIconURL;
 };
 
 type StatsKeys = keyof typeof statsKeysMap;
@@ -48,7 +48,6 @@ export const parseUserStatsFromString = (line: string): StatsPartial | undefined
   if (userInfo.length > 0) {
     const firstSplit = userInfo[0].split(' ');
     const rank = firstSplit[firstSplit.length - 1];
-    if (rank === NOT_FOUND_MESSAGE) return undefined;
 
     const statsRaw = userInfo.filter((info) => STATS.find((stat) => info.includes(stat)));
     const stats: StatsPartial = STATS.reduce((acc, current) => {
@@ -82,6 +81,7 @@ export const parseUserStatsFromString = (line: string): StatsPartial | undefined
 };
 
 export const parseUsersFromLfsEmbed = (embed: MessageEmbed) => {
+  console.log(embed.description);
   const lines = embed.description
     ?.split('\n')
     .map((l) => l.trim())
@@ -93,11 +93,8 @@ export const parseUsersFromLfsEmbed = (embed: MessageEmbed) => {
   const usersLines = lines?.slice(0, -linesToRemove);
 
   const users = usersLines?.map((line) => {
-    const pubgNickname = parsePubgNickFromQueryString(line);
     return {
-      pubgNickname: pubgNickname ?? '',
       discordId: parseUserIdFromQueryString(line) || parseUserIdFromMention(line),
-      stats: parseUserStatsFromString(line),
     };
   });
 
@@ -126,16 +123,16 @@ export const parseUsersIdsFromLfsEmbed = (embed: MessageEmbed) => {
   return users;
 };
 
-export const parseLfsEmbed = (embed: MessageEmbed): LfsEmbedProps => {
-  const channel = parseChannelFromLfsEmbed(embed);
+export const parseLfsEmbed = (embed: MessageEmbed) => {
   const note = parseNoteFromLfsEmbed(embed);
+  const channel = parseChannelFromLfsEmbed(embed);
 
   return {
     author: {
       id: parseAuthorIdFromLfsEmbed(embed) ?? '',
       avatar: embed.author?.iconURL ? parseDiscordAvatarIdFromUrl(embed.author.iconURL) : null,
     },
-    channel,
+    channelId: channel!.id,
     users: parseUsersFromLfsEmbed(embed),
     note,
   };
@@ -159,7 +156,6 @@ export const parseMessageRelatedToChannel = (
       return channel?.id === voiceChannelId && isLfsTeamEmbed(e);
     });
   });
-
   const messageSortedByDate = messagesChannel.slice().sort((a, b) => {
     const dateA = a.editedTimestamp ?? a.createdTimestamp;
     const dateB = b.editedTimestamp ?? b.createdTimestamp;
@@ -167,20 +163,16 @@ export const parseMessageRelatedToChannel = (
   });
 
   const message = messageSortedByDate.length > 0 ? messageSortedByDate[0] : undefined;
-
   const embed = message?.embeds[0];
   if (!message || !embed || !isLfsTeamEmbed(embed)) return null;
-
+  console.log('embed');
+  console.log(embed);
   const embedParsed = embed ? parseLfsEmbed(embed) : null;
   return {
     message,
     embed,
     embedParsed,
   };
-};
-
-export const isValidEmbed = (parsed: MessageParsed) => {
-  return Boolean(parsed && parsed.message && parsed.embedParsed && parsed.embedParsed.users);
 };
 
 export const deleteAllLfsAuthorEmbeds = async (authorId: string, messages: Collection<Snowflake, Message>) => {
