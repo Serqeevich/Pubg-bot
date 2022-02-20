@@ -18,18 +18,15 @@ const UpdateResolver: CommandResolver = async (client, message) => {
     ),
   );
 
-  if (
-    typeof updatedUser?.stats?.bestRank === 'string' &&
-    typeof updatedUser?.stats?.avgDamage === 'number' &&
-    typeof updatedUser?.stats?.kd === 'number' &&
-    message?.member
-  ) {
+  if (message?.member) {
     await addStatsRoles(message.member, updatedUser.stats);
     await feedbackMessage.edit(
       `<@${message.author.id}>,\n
-       **Режим**: Ранговый, **Звание**: ${updatedUser.stats.bestRank} ${updatedUser.stats.currentRankPoint} , **ADR**: ${updatedUser.stats.avgDamage}, **K/D**: ${updatedUser.stats.kd}\n
-      **Режим**: Squad TPP, **ADR**: ${updatedUser.stats.adrTPP}, **K/D**: ${updatedUser.stats.kdTPP}\n
-      **Режим**: Squad FPP, **ADR**: ${updatedUser.stats.adrFPP}, **K/D**: ${updatedUser.stats.kdFPP}`,
+       **Режим**: Ранговый, **Звание**: ${updatedUser.stats!.bestRank} ${
+        updatedUser.stats!.currentRankPoint
+      } , **ADR**: ${updatedUser.stats!.avgDamage}, **K/D**: ${updatedUser.stats!.kd}\n
+      **Режим**: Squad TPP, **ADR**: ${updatedUser.stats!.adrTPP}, **K/D**: ${updatedUser.stats!.kdTPP}\n
+      **Режим**: Squad FPP, **ADR**: ${updatedUser.stats!.adrFPP}, **K/D**: ${updatedUser.stats!.kdFPP}`,
     );
   }
 };

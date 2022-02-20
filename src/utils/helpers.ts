@@ -1,13 +1,17 @@
 import { UserDocument } from './../models/user';
-import { Collection, Snowflake, GuildMember } from 'discord.js';
-import { MessageEmbed } from 'discord.js';
+import { Collection, GuildMember, MessageEmbed, Snowflake } from 'discord.js';
 import { LfsUsers } from './../embeds/LookingForSomeone';
 import qs from 'query-string';
 
-export const findClosestNumber = (available: number[], goal: number): number =>
-  available.reduce(function (prev, curr) {
-    return Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev;
+export const findClosestNumber = (available: number[], goal: number): number => {
+  let score = 0;
+  available.forEach((v) => {
+    if (goal > v) {
+      score = v;
+    }
   });
+  return score;
+};
 
 export const parseAllMentionsIds = (message: string): string[] | null => {
   const mentionMatches = message.match(/<@(.*?)>/g);

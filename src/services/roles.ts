@@ -107,8 +107,8 @@ const ROLES: Roles = [
 type RoleGeneric = typeof RANKS | typeof KD | typeof ADR | typeof TPPADR | typeof TPPKD | typeof FPPADR | typeof FPPKD;
 
 const computeRoleNameFromStats = (role: RoleGeneric, stat: number, type: any, max: number) => {
-  const statNumbers = Object.keys(role).map((value) => Number(value));
-  const statRoleClosest = findClosestNumber(statNumbers, stat);
+  const statNumbers = Object.keys(role).map((value) => Number(value)); //300
+  const statRoleClosest: number = findClosestNumber(statNumbers, stat);
   const statRole = statRoleClosest > max ? `+${statRoleClosest}` : statRoleClosest;
   return `${type} ${statRole}`;
 };
