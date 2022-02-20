@@ -24,13 +24,13 @@ Don't be a crybaby: clone, install and run the commands
 | Команда                          | Канал            | Описание                                                                                                                                                         |
 |----------------------------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `!invite` or `!invite "note"`            | `Поиск`   | Creates a LFS embed with a possible note                                                                                                                                                |
-| `-`                              | `LFS_CHANNEL_ID`   | Deletes the last LFS embed of the author                                                                                                                            |
-| `!reg PUBG_NICKNAME`            | `ROLES_CHANNEL_ID` | Assigns a pubg nickname to the author and roles according to stats                                                                                                  |
-| `/role "ROLE_NAME"`            | `ROLES_CHANNEL_ID` | Assigns a free agent role to user                                                                                                  |
-| `!update`                        | `ROLES_CHANNEL_ID` | Updates user pubg stats for users already linked                                                                                                                    |
-| `/link PUBG_NICKNAME DISCORD_ID` | `ADMIN_CHANNEL_ID` | Assigns a pubg nickname to the user of the discord id and roles according to stats, if someone is linked to that pubg account he will be unlinked and roles removed |
-| `/unlink PUBG_NICKNAME`          | `ADMIN_CHANNEL_ID` | If someone is linked to that pubg account he will be unlinked and roles removed                                                                                     |
-| `/help`                          | `LFS_CHANNEL_ID`, `ROLES_CHANNELL_ID`, `ADMIN_CHANNEL_ID`      | Sends a PM to the User with a General Guide to the bot commands, or sends message with help commands.                       |
+| `-`                              | `Поиск`   | Deletes the last LFS embed of the author                                                                                                                            |
+| `!reg PUBG_NICK`            | `Регистрация` | Assigns a pubg nickname to the author and roles according to stats                                                                                                  |
+| `/role "ROLE_NICK"`            | `Регистрация` | Assigns a free agent role to user                                                                                                  |
+| `!update`                        | `Регистрация` | Updates user pubg stats for users already linked                                                                                                                    |
+| `/link PUBG_NIC DISCORD_ID` | `Админ канал` | Assigns a pubg nickname to the user of the discord id and roles according to stats, if someone is linked to that pubg account he will be unlinked and roles removed |
+| `/unlink PUBG_NICK`          | `Админ канал` | If someone is linked to that pubg account he will be unlinked and roles removed   
+
 | `/order`                          | any      | Sends a "ORDER" gif                     |
 
 ### Triggers
@@ -40,30 +40,30 @@ If someone uses lousy words the bot will reply with a notice.
 
 The first thing a user must do is link their discord account to a pubg account by linking them, this will assign him roles according to stats and rank, once that's done he can join the rooms according to stats. He can also use the LFS channel with a more detailed embed.
 
-### 1. Link
+### 1. Регистрация
 
-`!reg PUBG_NAME`
+`!reg PUBG_NICK`
 
 This command will fetch the users stats directly from the PUBG API there's a minimum of 20 games required in order to provide the roles.
 
-`/!reg PUBG_NAME DISCORD_ID`
+`!reg PUBG_NAME DISCORD_ID`
 
 Admin command, same as previous but assigns the stats of the PUBG_NAME to the user of the DISCORD_ID. Used to avoid false linking.
 
-**Roles**
+**Роли**
 | Role(s) | Description |
 |:-----------------|:-------------|
-| `Bronze`, `Silver`, `Gold`, `Platinum`, `Diamond`, `Master` | Role according to rank. |
-| `KD 0.5`, `KD 1`, `KD 1.5`, `KD 2`, `KD 2.5`, `KD 3`, `KD 3.5`, `KD 4`, `KD 4.5`, `KD 5`, `KD +6` | Role according to KD. |
-| `100 ADR`, `150 ADR`, `200 ADR`, `250 ADR`, `300 ADR`, `350 ADR`, `400 ADR`, `450 ADR`, `500 ADR`, `+550 ADR` | Role according to ADR. |
+| `Bronze`, `Silver`, `Gold`, `Platinum`, `Diamond`, `Master` | Ранговые роли. |
+| `KD 0.5`, `KD 1`, `KD 1.5`, `KD 2`, `KD 2.5`, `KD 3`, `KD 3.5`, `KD 4`, `KD 4.5`, `KD 5`, `KD +6` | Роли KD. |
+| `100 ADR`, `150 ADR`, `200 ADR`, `250 ADR`, `300 ADR`, `350 ADR`, `400 ADR`, `450 ADR`, `500 ADR`, `+550 ADR` | Роли ADR. |
 
-### 2. Looking for someone
+### 2. Поиск игроков
 
 `!invite`
 
 By typing `lfs` on the `looking-for-someone` channel the bot will create a LFS Embed, if someone reacts with a `✉️` it will send a PM to the author of the `lfs` with the request, the author can accept or decline the request and the interested party will be notified with a PM.
 
-### 3. Help
+### 3. Помощь
 
 `/help`
 
