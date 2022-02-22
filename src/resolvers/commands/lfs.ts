@@ -81,15 +81,17 @@ const LfsResolver: CommandResolver = async (client, message, argumentsParsed) =>
     const missingPlayersContent = users && users.length && ` +${userLimit - users.length} `;
 
     const footerComputed =
-      users?.length === userLimit ? 'Канал заполнен ⛔' : `В поиске ${missingPlayersContent}игроков`;
+      users?.length === userLimit ? 'Канал заполнен ⛔' : `В поиске ${missingPlayersContent} игроков`;
 
     const invite = authorVoiceChannel.full ? { url: '' } : await authorVoiceChannel?.createInvite();
 
     const missingPlayers = users ? userLimit - users.length : 0;
+
     const thumbnail =
       missingPlayers > 0
         ? missingPlayersMedia[missingPlayers]
         : inProgressMedia[Math.floor(Math.random() * inProgressMedia.length)];
+        
     await message.channel.send(
       new MessageEmbed()
         .setColor(users?.length === 4 ? '#2FCC71' : '#0099ff') //цвет сообщения
@@ -97,7 +99,7 @@ const LfsResolver: CommandResolver = async (client, message, argumentsParsed) =>
           `
           ${usersList?.join('')}
 
-          Подключиться ${invite?.url}
+          **Подключиться:** ${invite?.url}
 
           ${note ? `> ${note}` : ''}
         `,

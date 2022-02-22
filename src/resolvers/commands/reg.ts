@@ -1,23 +1,65 @@
 import User from './../../models/user';
-import { GuildMember } from 'discord.js';
+import { GuildMember, MessageEmbed } from 'discord.js';
 import { CommandResolver } from '.';
 import { EmbedError } from '../../embeds/Error';
 import { EmbedSuccessMessage } from '../../embeds/Success';
 import { addStatsRoles, removeRoles } from '../../services/roles';
+
+const updateMedia = [
+  'https://cdn.discordapp.com/attachments/945683636680790076/945684032484704256/Alpha.png',
+  'https://cdn.discordapp.com/attachments/945683636680790076/945684094992416838/Arrowhead.png',
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684108489682974/Baby.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684140039213106/Bandito.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684160272531516/Bobo.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684193197817896/Biohazard.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684225426853939/Bolt_Action.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684256347258930/Cast_Iron.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684288127504454/Cobra.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684338996027482/Dead_Mans_Hand.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684365915066398/Die_Happy.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684389394776124/Early_Bird.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684406989905980/Enforcer.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684426065580062/Flesh_Wound.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684441068609606/Fresh_Air.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684453185953802/Grizzly.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684460383395840/Hack_n_Slash.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684483506589736/Haymaker.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684500598378576/Hunter.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684510056517673/Lone_Survivor.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684520475164702/Last_Shot.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684565270360115/Masquerade.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684618697388082/Luchador.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684648007172126/Nuke_em.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684656009928734/One_Shot.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684673416282142/Pinchy.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684685332291644/PUBG_Logo.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684697235750932/Royale.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684718769278976/Snake_Eyes.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684725752799322/Spitfire.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684780127760435/Swordmaster.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684792370937866/The_Kraken.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684805566222386/Three_of_Swords.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684829297598494/Trident.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684843033948200/Voodoo.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684852697620500/Warrior.png`,
+  `https://cdn.discordapp.com/attachments/945683636680790076/945684860272537700/Weird_Flex.png`,
+];
 
 const LinkResolver: CommandResolver = async (client, message, argumentsParsed) => {
   const isLfsChannel = message.channel.id === process.env.ROLES_CHANNEL_ID;
   const isAdminChannel = message.channel.id === process.env.ADMIN_CHANNEL_ID;
   if (!isLfsChannel && !isAdminChannel) return;
 
+  await message.delete();
+
   const pubgNickname = argumentsParsed._[1] || '';
   const discordId = argumentsParsed._[2] || '';
   const isAdminCommand = isAdminChannel && discordId;
-  const command = isAdminChannel ? `\`/link NICK_DO_PUBG DISCORD_ID\`` : `\`/link NICK_DO_PUBG\``;
+  const command = isAdminChannel ? `\`!reg Pubg_Nick Discord_id\`` : `\`!reg Pubg_Nick\``;
 
   if (pubgNickname === '') {
     throw new EmbedError(
-      `<@${message.author.id}> para associar a conta é necessário dizer o nome no pubg, exemplo:  ${command}`,
+      `<@${message.author.id}> Для привязки игрового аккаунта введите свой игровой никнейм.\nПример: ${command}`,
     );
   }
 
@@ -27,7 +69,7 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
     );
   }
 
-  const feedbackMessage = await message.channel.send('A associar contas...');
+  const feedbackMessage = await message.channel.send('.');
 
   const {
     newUser: { stats },
@@ -42,7 +84,7 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
     EmbedSuccessMessage(
       isAdminCommand
         ? `Ligaste a conta [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) à conta de Discord <@${discordId}>`
-        : `Ligaste a conta [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) à tua conta de Discord!`,
+        : `Привязка игрового аккаунта [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) к аккаунту Discord!`,
     ),
   );
 
@@ -61,13 +103,23 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
     if (isAdminCommand) {
       member = await message.guild?.members.fetch(discordId);
     }
-    if (!member) throw new EmbedError('Utilizador não encontrado no servidor');
+    if (!member) throw new EmbedError('Пользователь не найден.');
     await addStatsRoles(member, stats);
-    // const messageStats = `<@${linkedDiscordId}>, **Modo**: Squad-FPP, **Rank** (maior): ${stats.bestRank}, **ADR**: ${stats.avgDamage}, **K/D**: ${stats.kd}, **WR**: ${stats.winRatio}%.`;
-    const messageStats = `Вы успешно прошли регистрацию под ником [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) ${
-      stats!.bestRank
-    } ${stats?.subTier ? stats?.subTier : ''}`;
-    await feedbackMessage.edit(messageStats);
+    
+    const thumbnailUpdateMedia = updateMedia [Math.floor(Math.random() * updateMedia.length)];
+
+    await feedbackMessage.edit(
+      new MessageEmbed()
+      .setColor(`#00FF00`)
+      .setTitle(`<a:OK:940200543119355926> Регистрация пройдена.`)
+      .setDescription(`[${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) <a:arrow:945647104074854410> <@${message.author.id}>`)
+      .setThumbnail(thumbnailUpdateMedia)
+      .addField(`**${stats?.bestRank ? stats?.bestRank :'Unranked'} ${stats?.subTier ? stats?.subTier :''}**`,`>  <:Point:945665709399216148> **Point:** ${stats?.currentRankPoint ? stats?.currentRankPoint :'0'} <:Adr:934113837970505788> **ADR:** ${stats?.avgDamage ? stats.avgDamage :'0'} <:KD:934114143500369920> **KD:** ${stats?.kd ? stats?.kd :'0'}`)
+      .addField(`**TPP Squad**`,`\n> <:Adr:934113837970505788> **ADR:** ${stats?.adrTPP ? stats?.adrTPP:'0'}\n> <:KD:934114143500369920> **KD:** ${stats?.kdTPP ? stats?.kdTPP :'0'}`, true)
+      .addField(`**FPP Squad**`,`\n> <:Adr:934113837970505788> **ADR:** ${stats?.adrFPP ? stats?.adrFPP:'0'}\n> <:KD:934114143500369920> **KD:** ${stats?.kdFPP ? stats?.kdFPP :'0'}`, true)
+     .setTimestamp()
+      .setFooter('Введите команду !reg Nickname для регистрации.',`https://cdn.discordapp.com/attachments/939806800679690260/945611614244208650/GOTOP.png`)
+    )
   }
 };
 

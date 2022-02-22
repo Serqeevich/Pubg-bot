@@ -85,7 +85,7 @@ export const voiceResolver = async (client: Client, oldState: VoiceState, newSta
           : inProgressMedia[Math.floor(Math.random() * inProgressMedia.length)];
       const newDescription = `${usersNew.map((u) => `\n<@${u.discordId}>`)?.join('')}`;
 
-      const link = newMessageParsed.embed.description?.split('Подключиться')[1];
+      const link = newMessageParsed.embed.description?.split('**Подключиться:**')[1];
 
       console.log(link);
 
