@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 
-const inProgressMedia = ['https://media2.giphy.com/media/l3mZfUQOvmrjTTkiY/giphy.gif'];
+const inProgressMedia = ['https://cdn.discordapp.com/attachments/939806800679690260/946066357114503238/FULL.png'];
 
 const missingPlayersMedia: { [key: number]: string } = {
   1: 'https://i.imgur.com/TvqWGPH.png',
@@ -38,13 +38,13 @@ export const LfsMessage = ({ author, channel, inviteUrl, users, note, footer, mi
   const usersList = users?.map((user) => {
     return `\n<@${user.discordId}>`;
   });
-  //⭕
+  
   const calculateImage = (missingPlayers: number) => {
     if (missingPlayers <= 3) {
       return missingPlayersMedia[missingPlayers];
     }
 
-    return 'https://cdn.discordapp.com/attachments/939806800679690260/946027907489357864/aEdUU60CCnU.jpg';
+    return 'https://cdn.discordapp.com/attachments/939806800679690260/945611614244208650/GOTOP.png';
   };
 
   const thumbnail =
@@ -60,22 +60,22 @@ export const LfsMessage = ({ author, channel, inviteUrl, users, note, footer, mi
     }
   };
 
-  const connectionUrl = inviteUrl ? `**Подключиться:** ${inviteUrl}` : `Играют в канале: ${channel?.name}`;
+  const connectionUrl = inviteUrl ? `**Подключиться:** ${inviteUrl}` : `**Играют в канале:** **${channel?.name}**ㅤㅤㅤㅤㅤㅤㅤㅤ`;
 
   const Embed = new MessageEmbed()
-    .setColor(users?.length === 4 ? '#2FCC71' : '#0099ff') //цвет сообщения
+    .setColor(users?.length === 4 ? '#FF0000' : '#00FF00') //цвет сообщения   
     .setDescription(
-      `
-          ${usersList?.join('')}
-
-          ${connectionUrl}
+`
           
-          ${note ? `> ${note}` : ''}
-        `,
+${usersList?.join('')}
+
+${connectionUrl}
+          
+${note ? `> ${note}` : ''}
+`,
     )
     .setFooter(footer)
     .setTimestamp()
-    .setImage('https://cdn.discordapp.com/attachments/939806800679690260/946027907489357864/aEdUU60CCnU.jpg')
     .setThumbnail(thumbnail)
     .setAuthor(channel?.name, computeAuthorAvatar(channel, author));
 

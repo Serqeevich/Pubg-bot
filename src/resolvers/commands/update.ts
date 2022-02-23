@@ -28,7 +28,7 @@ const UpdateResolver: CommandResolver = async (client, message) => {
 
   await feedbackMessage.edit(
     '',
-    EmbedSuccessMessage(`Обновляем роли <@${message.author.id}> <a:load:945638352055586826>`),
+    EmbedSuccessMessage(`Обновляем роли <@${message.author.id}>`),
   );
 
   if (message?.member) {

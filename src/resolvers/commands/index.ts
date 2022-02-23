@@ -3,7 +3,7 @@ import { Client, Message } from 'discord.js';
 import { EmbedErrorMessage } from '../../embeds/Error';
 import { parseAuthorIdFromLfsEmbed } from '../../utils/embeds';
 import { logError } from '../../services/logs';
-import LfsResolver from './lfs';
+import LfsResolver from './invite';
 import LinkResolver from './reg';
 import UnlinkResolver from './unlink';
 import UpdateResolver from './update';
@@ -20,16 +20,12 @@ export const NOTE_LIMIT_CHARS = 120;
 export const QUOTE_REGEX = /^"(.*?)"$/;
 
 export const resolvers: Resolvers = {
-  lfs: LfsResolver,
-  '+': LfsResolver,
-  '/reg': LinkResolver,
+  '!invite': LfsResolver,
+  '!i': LfsResolver,
   '!reg': LinkResolver,
-  '.reg': LinkResolver,
   '!unreg': UnlinkResolver,
-  update: UpdateResolver,
-  '.update': UpdateResolver,
   '!update': UpdateResolver,
-  '-': async (client, message) => {
+  '!del': async (client, message) => {
     if (message.channel.id !== process.env.LFS_CHANNEL_ID) return;
 
     await message.delete();

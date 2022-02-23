@@ -1,8 +1,8 @@
-import { computeChannelUsers } from './../../utils/helpers';
+import { computeChannelUsers } from '../../utils/helpers';
 import { CommandResolver, NOTE_LIMIT_CHARS } from '.';
 import { deleteAllLfsAuthorEmbeds, parseMessageRelatedToChannel } from '../../utils/embeds';
 import { EmbedError } from '../../embeds/Error';
-import User from './../../models/user';
+import User from '../../models/user';
 import { Author, LfsMessage } from '../../models/LfsMessage';
 import { VoiceChannel } from 'discord.js';
 
