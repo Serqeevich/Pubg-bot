@@ -1,4 +1,4 @@
-import { Collection, Message, MessageEmbed, Snowflake } from 'discord.js';
+import { Collection, Message, MessageEmbed, Snowflake, VoiceChannel } from 'discord.js';
 import {
   parseAllMentionsIds,
   parseChannelFromLfsEmbed,
@@ -8,7 +8,7 @@ import {
   parseUserIdFromQueryString,
 } from './helpers';
 import { StatsPartial, Tier } from './../services/pubg';
-import { LfsEmbedProps } from '../resolvers/changeMembersListener';
+import { Author, LfsEmbedProps } from '../models/LfsMessage';
 
 const BLOQUOTE = /\> (.*$)/im;
 
@@ -81,7 +81,6 @@ export const parseUserStatsFromString = (line: string): StatsPartial | undefined
 };
 
 export const parseUsersFromLfsEmbed = (embed: MessageEmbed) => {
-  console.log(embed.description);
   const lines = embed.description
     ?.split('\n')
     .map((l) => l.trim())
@@ -132,7 +131,7 @@ export const parseLfsEmbed = (embed: MessageEmbed) => {
       id: parseAuthorIdFromLfsEmbed(embed) ?? '',
       avatar: embed.author?.iconURL ? parseDiscordAvatarIdFromUrl(embed.author.iconURL) : null,
     },
-    channelId: channel!.id,
+    channel,
     users: parseUsersFromLfsEmbed(embed),
     note,
   };
@@ -165,8 +164,6 @@ export const parseMessageRelatedToChannel = (
   const message = messageSortedByDate.length > 0 ? messageSortedByDate[0] : undefined;
   const embed = message?.embeds[0];
   if (!message || !embed || !isLfsTeamEmbed(embed)) return null;
-  console.log('embed');
-  console.log(embed);
   const embedParsed = embed ? parseLfsEmbed(embed) : null;
   return {
     message,

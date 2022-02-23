@@ -1,10 +1,10 @@
-import { clearQuotes, computeChannelUsers } from './../../utils/helpers';
-import { CommandResolver, NOTE_LIMIT_CHARS, QUOTE_REGEX } from '.';
+import { computeChannelUsers } from './../../utils/helpers';
+import { CommandResolver, NOTE_LIMIT_CHARS } from '.';
 import { deleteAllLfsAuthorEmbeds, parseMessageRelatedToChannel } from '../../utils/embeds';
 import { EmbedError } from '../../embeds/Error';
 import User from './../../models/user';
-import { MessageEmbed, VoiceChannel } from 'discord.js';
-import { Author } from '../changeMembersListener';
+import { Author, LfsMessage } from '../../models/LfsMessage';
+import { VoiceChannel } from 'discord.js';
 
 const inProgressMedia = [
   'https://media2.giphy.com/media/l3mZfUQOvmrjTTkiY/giphy.gif',
@@ -27,7 +27,9 @@ const LfsResolver: CommandResolver = async (client, message, argumentsParsed) =>
   await message.delete();
   const authorVoiceChannel = message.member?.voice.channel;
   // const isNoteValid = QUOTE_REGEX.test(argumentsParsed._[1]);
-  const note = clearQuotes(argumentsParsed._[1]) ?? '';
+  const str = argumentsParsed._;
+  str.shift();
+  const note = str.join(' ') ?? '';
 
   if (note.length - 1 > NOTE_LIMIT_CHARS) {
     throw new EmbedError(
@@ -46,7 +48,10 @@ const LfsResolver: CommandResolver = async (client, message, argumentsParsed) =>
       const updatedMessages = await textChannel.messages.fetch();
       const messagesArr = updatedMessages.map((m) => m);
       const embedOfChannel = parseMessageRelatedToChannel(messagesArr, authorVoiceChannel?.id);
-      if (embedOfChannel?.embedParsed?.channelId && embedOfChannel?.embedParsed?.channelId === authorVoiceChannel?.id)
+      if (
+        embedOfChannel?.embedParsed?.channel?.id &&
+        embedOfChannel?.embedParsed?.channel?.id === authorVoiceChannel?.id
+      )
         return;
     }
 
@@ -65,55 +70,20 @@ const LfsResolver: CommandResolver = async (client, message, argumentsParsed) =>
     //TODO много лишнего
     const users = computeChannelUsers(authorVoiceChannel?.members, channelUsersDocuments, message.author.id);
 
-    const computeAuthorAvatar = (channel: VoiceChannel, author?: Author) => {
-      if (author && author.id) {
-        return `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.png?size=128&channelId=${
-          channel.id
-        }&channelName=${encodeURIComponent(channel.name ?? '')}`;
-      }
-    };
-
-    const usersList = users?.map((user) => {
-      // if (user.pubgNickname === '' || user.stat  s === undefined) return `\n<@${user.discordId}>${NOT_FOUND_MESSAGE}`;
-      return `\n<@${user.discordId}>`;
-    });
-
     const missingPlayersContent = users && users.length && ` +${userLimit - users.length} `;
 
-    const footerComputed =
-      users?.length === userLimit ? 'Канал заполнен ⛔' : `В поиске ${missingPlayersContent} игроков`;
+    const footer = users?.length === userLimit ? 'Канал заполнен ⛔' : `В поиске ${missingPlayersContent} игроков`;
 
     const invite = authorVoiceChannel.full ? { url: '' } : await authorVoiceChannel?.createInvite();
 
     const missingPlayers = users ? userLimit - users.length : 0;
+    const channel = {
+      id: authorVoiceChannel.id,
+      name: authorVoiceChannel.name,
+    };
 
-    const thumbnail =
-      missingPlayers > 0
-        ? missingPlayersMedia[missingPlayers]
-        : inProgressMedia[Math.floor(Math.random() * inProgressMedia.length)];
-        
     await message.channel.send(
-      new MessageEmbed()
-        .setColor(users?.length === 4 ? '#2FCC71' : '#0099ff') //цвет сообщения
-        .setDescription(
-          `
-          ${usersList?.join('')}
-
-          **Подключиться:** ${invite?.url}
-
-          ${note ? `> ${note}` : ''}
-        `,
-        )
-        .setFooter(footerComputed)
-        .setTimestamp()
-        .setThumbnail(thumbnail)
-        .setAuthor(
-          authorVoiceChannel.name,
-          computeAuthorAvatar(authorVoiceChannel, {
-            id: message.author.id,
-            avatar: message.author.avatar,
-          }),
-        ),
+      LfsMessage({ author: message.author, channel, inviteUrl: invite.url, note, footer, missingPlayers, users }),
     );
   }
   //TODO:неголосовой канал

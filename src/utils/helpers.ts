@@ -83,7 +83,7 @@ export const computeChannelUsers = (
 };
 
 export const millisToMinutes = (millis: number) => Math.floor(millis / 60000);
-export const clearQuotes = (str: string) => str?.replace(/^["'](.+(?=["']$))["']$/, '$1');
+// export const clearQuotes = (str: string) => str?.replace(/^["'](.+(?=["']$))["']$/, '$1');
 
 export const removeAccent = (content: string) => {
   const strAccents = content.split('');

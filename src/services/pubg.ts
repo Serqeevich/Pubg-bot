@@ -112,6 +112,7 @@ export type Stats = {
   kd: number;
   avgDamage: number;
   bestRank: PubgTier;
+  // gamesTpp: number;
   subTier: number;
   currentRankPoint: number;
   adrTPP: number;
@@ -215,6 +216,7 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
     const kills = get(pubgRankStats, 'kills', 0);
     //tpp
     const killsTPP = get(pubgTPPStats, 'kills', 0);
+    //const sddsfds = get(pubgTPPStats, 'kills', 0);
     //fpp
     const killsFPP = get(pubgFPPStats, 'kills', 0);
 
@@ -242,6 +244,7 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
       adrFPP: Math.round(adrFPP),
       kdTPP: roundHundredth(kdTPP),
       kdFPP: roundHundredth(kdFPP),
+      //gamesTpp: roundsTPPPlayed,
       subTier,
       bestRank,
     };
