@@ -160,7 +160,7 @@ const getPlayerId = async (player: string): Promise<string> => {
       );
 
     if (err && err.response && err.response.status && err.response.status === 429)
-      throw new EmbedError(`Превышен лимит запросов к API pubg, подождите 1 минуту что бы отправить новый запрос!`);
+      throw new EmbedError(`Превышен лимит запросов, подождите 1 минуту что бы отправить новый запрос!`);
     else throw Error(err);
   }
 };
