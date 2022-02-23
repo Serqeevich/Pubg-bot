@@ -20,11 +20,16 @@ export const NOTE_LIMIT_CHARS = 120;
 export const QUOTE_REGEX = /^"(.*?)"$/;
 
 export const resolvers: Resolvers = {
-  '!invite': LfsResolver,
+  lfs: LfsResolver,
+  '+': LfsResolver,
+  '/reg': LinkResolver,
   '!reg': LinkResolver,
+  '.reg': LinkResolver,
   '!unreg': UnlinkResolver,
+  update: UpdateResolver,
+  '.update': UpdateResolver,
   '!update': UpdateResolver,
-  '!del': async (client, message) => {
+  '-': async (client, message) => {
     if (message.channel.id !== process.env.LFS_CHANNEL_ID) return;
 
     await message.delete();
