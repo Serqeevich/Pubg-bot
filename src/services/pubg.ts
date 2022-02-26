@@ -108,17 +108,30 @@ type PubgSquadResponse = {
   };
 };
 
-export type Stats = {
+export type Stats = {                      //тут
   kd: number;
   avgDamage: number;
   bestRank: PubgTier;
-  // gamesTpp: number;
   subTier: number;
   currentRankPoint: number;
+  gamesRank: number;
+  gamesTPP: number;
+  gamesFPP: number;                                 
   adrTPP: number;
   adrFPP: number;
   kdTPP: number;
-  kdFPP: number;
+  kdFPP: number; 
+
+  //winRatioRank: number;
+  //winRatioTPP: number;
+  //winRatioFPP: number;
+  wins: number,
+  winsTPP: number;
+  winsFPP: number;
+  kills: number,
+  killsTPP: number;
+  killsFPP: number;
+  
 };
 
 export type StatsPartial = {
@@ -216,14 +229,22 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
     const kills = get(pubgRankStats, 'kills', 0);
     //tpp
     const killsTPP = get(pubgTPPStats, 'kills', 0);
+
     //const sddsfds = get(pubgTPPStats, 'kills', 0);
+
     //fpp
     const killsFPP = get(pubgFPPStats, 'kills', 0);
-
+                                                                                             //тут
     const bestRank = get(pubgRankStats, 'currentTier.tier', undefined);
     const subTier = get(pubgRankStats, 'currentTier.subTier', undefined);
     const currentRankPoint = get(pubgRankStats, 'currentRankPoint', undefined);
-    // const winRatio = get(pubgRankStats, 'winRatio', NaN);
+    const gamesRank = get (pubgRankStats, 'gamesRank', NaN)
+    const gamesTPP = get(pubgTPPStats, 'gamesTPP', NaN); 
+    const gamesFPP = get(pubgFPPStats, 'gamesFPP', NaN);
+    
+    //const winRatioRank = get(pubgRankStats, 'winRatio', NaN);
+    //const winRatioTPP = get(pubgTPPStats, 'winRatioTPP',NaN)
+    //const winRatioFPP = get(pubgFPPStats, 'winRatioFPP',NaN)
 
     const kd = kills / (roundsPlayed - wins);
     const kdTPP = killsTPP / (roundsTPPPlayed - winsTPP);
@@ -231,6 +252,8 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
     const avgDamage = damageDealt / roundsPlayed;
     const adrTPP = damageDealtTPP / roundsTPPPlayed;
     const adrFPP = damageDealtFPP / roundsFPPPlayed;
+
+    
 
     if (typeof kd !== 'number' || typeof avgDamage !== 'number') {
       throw new EmbedError(`Невозможно получить ранг для игрока \`${player}\``);
@@ -244,9 +267,22 @@ export const getPlayerStats = async (player: string): Promise<Stats> => {
       adrFPP: Math.round(adrFPP),
       kdTPP: roundHundredth(kdTPP),
       kdFPP: roundHundredth(kdFPP),
-      //gamesTpp: roundsTPPPlayed,
+      gamesRank: roundsPlayed,
+      gamesTPP: roundsTPPPlayed,                                               // тут
+      gamesFPP: roundsFPPPlayed,
       subTier,
       bestRank,
+
+     // winRatioRank,
+     // winRatioTPP,
+     // winRatioFPP,
+      wins,
+      winsTPP,
+      winsFPP,
+      kills,
+      killsTPP,
+      killsFPP,
+      
     };
   } catch (err: any) {
     if (err && err.response && err.response.status === 404)

@@ -7,6 +7,7 @@ import LfsResolver from './invite';
 import LinkResolver from './reg';
 import UnlinkResolver from './unlink';
 import UpdateResolver from './update';
+import StatResolver from './stat';
 
 import AntiSpam from '../../services/spam';
 
@@ -25,6 +26,7 @@ export const resolvers: Resolvers = {
   '!reg': LinkResolver,
   '!unreg': UnlinkResolver,
   '!update': UpdateResolver,
+  '!stat': StatResolver,
   '!del': async (client, message) => {
     if (message.channel.id !== process.env.LFS_CHANNEL_ID) return;
 
@@ -58,7 +60,7 @@ export const commandsResolver = async (client: Client, message: Message) => {
     const isSpamDetected = await AntiSpam.checkMessageInterval(message); // Check sent messages interval
     if (isSpamDetected) {
       await message.delete();
-      await message.author.send(`<@${message.author.id}>, por favor evita o spam de comandos.`);
+      await message.author.send(`<@${message.author.id}>, пожалуйста - не спамьте.`);
       throw new Error(`Spam detected: ${message.content} by <@${message.author.id}>`);
     }
 

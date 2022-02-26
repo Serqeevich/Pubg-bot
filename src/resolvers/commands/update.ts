@@ -46,22 +46,9 @@ const UpdateResolver: CommandResolver = async (client, message) => {
         )
         .setThumbnail(thumbnailUpdateMedia)
         .addField(
-          `${updatedUser.stats?.bestRank ? updatedUser.stats?.bestRank : 'Unranked'} ${
-            updatedUser.stats?.subTier ? updatedUser.stats?.subTier : ''
-          }`,
-          `> <:Point:945665709399216148> Point: ${
-            updatedUser.stats?.currentRankPoint ? updatedUser.stats?.currentRankPoint : '0'
-          } <:Adr:934113837970505788> ADR: ${
-            updatedUser.stats?.avgDamage ? updatedUser.stats?.avgDamage : '0'
-          } <:KD:942655934856048641> KD: ${updatedUser.stats?.kd ? updatedUser.stats?.kd : '0'}`,
-        )
+          `${updatedUser.stats?.bestRank ? updatedUser.stats?.bestRank : 'Unranked'} ${updatedUser.stats?.subTier ? updatedUser.stats?.subTier : ''}`,`> <:Point:945665709399216148> Point: ${updatedUser.stats?.currentRankPoint ? updatedUser.stats?.currentRankPoint : '0'} <:Adr:934113837970505788> ADR: ${updatedUser.stats?.avgDamage ? updatedUser.stats?.avgDamage : '0'} <:KD:934114143500369920> KD: ${updatedUser.stats?.kd ? updatedUser.stats?.kd : '0'}`,)
         .addField(
-          '** TPP Squad **',
-          `\n> <:Adr:934113837970505788> ADR: ${
-            updatedUser.stats?.adrTPP ? updatedUser.stats?.adrTPP : '0'
-          }\n> <:KD:934114143500369920> KD: ${updatedUser.stats?.kdTPP ? updatedUser.stats?.kdTPP : '0'}`,
-          true,
-        )
+          '** TPP Squad **',`\n> <:Adr:934113837970505788> ADR: ${updatedUser.stats?.adrTPP ? updatedUser.stats?.adrTPP : '0'}\n> <:KD:934114143500369920> KD: ${updatedUser.stats?.kdTPP ? updatedUser.stats?.kdTPP : '0'}`,true,)
         .addField(
           '** FPP Squad **',
           `\n> <:Adr:934113837970505788> ADR: ${

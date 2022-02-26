@@ -17,7 +17,7 @@ const UnlinkResolver: CommandResolver = async (client, message, argumentsParsed)
     );
   }
 
-  const feedbackMessage = await message.channel.send('Отвязка аккаунта <a:InProg:942799681019314226>');
+  const feedbackMessage = await message.channel.send('Отвязка аккаунта');
   const { discordId } = await User.deleteByPubgAccount(pubgNickname);
 
   const member = await message.guild?.members.fetch(discordId);

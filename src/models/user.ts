@@ -80,7 +80,7 @@ UserSchema.statics = {
     if (userWithNick) {
       await userWithNick.delete();
     } else {
-      throw new EmbedError(`**${pubgNickname}** não está ligada a nenhuma conta deste discord.`);
+      throw new EmbedError(`**${pubgNickname}** Не связан ни с одним аккаунтом discord.`);
     }
 
     return userWithNick;

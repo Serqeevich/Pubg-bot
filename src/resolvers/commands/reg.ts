@@ -65,7 +65,7 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
 
   if (isAdminChannel && discordId === '') {
     throw new EmbedError(
-      `<@${message.author.id}> para associar a conta de pubg **${pubgNickname}** no canal de admin é necessário dizer a quem queremos associar, exemplo:  ${command}`,
+      `<@${message.author.id}> Чтобы привязать  **${pubgNickname}** в а админ-канале вам необходимо указать ID , пример:  ${command}`,
     );
   }
 
@@ -84,8 +84,8 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
     '',
     EmbedSuccessMessage(
       isAdminCommand
-        ? `Ligaste a conta [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) à conta de Discord <@${discordId}>`
-        : `Привязка игрового аккаунта [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) к аккаунту Discord!`,
+        ? `Вы привязали [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) а аккаунту Discord <@${discordId}>`
+        : `Вы привязали [${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) к аккаунту Discord!`,
     ),
   );
 
@@ -95,7 +95,7 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
       const oldMember = await message.guild?.members.fetch(oldUser.discordId);
       if (oldMember) {
         await removeRoles(oldMember);
-        await message.channel.send(`Roles de <@${oldUser.discordId}> removidas.`);
+        await message.channel.send(`Роли <@${oldUser.discordId}> удалены.`);
       }
     }
 
