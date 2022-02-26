@@ -61,7 +61,7 @@ export const commandsResolver = async (client: Client, message: Message) => {
     if (isSpamDetected) {
       await message.delete();
       await message.author.send(`<@${message.author.id}>, пожалуйста - не спамьте.`);
-      throw new Error(`Spam detected: ${message.content} by <@${message.author.id}>`);
+      throw new Error(`Обнаружен спам ${message.content} от <@${message.author.id}>`);
     }
 
     const resolver = resolvers[command];
