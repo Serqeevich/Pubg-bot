@@ -4,12 +4,26 @@ import { parseMessageRelatedToChannel } from './../utils/embeds';
 import { LfsMessage } from '../models/LfsMessage';
 import * as console from 'console';
 
+const parentChannels = [
+  '907629410008584232', //squad tpp
+  '907629461321703434', //squad fpp
+  '907685149616009236', //ranked
+  '907630769906778163', //duo
+  '931954839527780392', //squad tpp 18+
+  '931954932024758282', //squad fpp 18+
+  '931954994796691516', //duo 18+
+  '919195736275554345', //other
+];
+
 export const voiceResolver = async (client: Client, oldState: VoiceState, newState: VoiceState) => {
   if (!process.env.LFS_CHANNEL_ID) return;
 
   const prevVoiceChannel = oldState.channel?.id;
   const newVoiceChannel = newState.channel?.id;
-  const hasJoined = true;
+
+  const isParent = newVoiceChannel && parentChannels.indexOf(newVoiceChannel) > -1;
+
+  const hasJoined = Boolean(newVoiceChannel);
   const hasSwitched = Boolean(hasJoined && prevVoiceChannel && prevVoiceChannel !== newVoiceChannel);
   const userId = newState.id;
 
@@ -20,21 +34,20 @@ export const voiceResolver = async (client: Client, oldState: VoiceState, newSta
   const messagesArr = messages.map((m) => m);
 
   let channel;
+  console.log('newVoiceChannel', newVoiceChannel);
+  console.log('prevVoiceChannel', prevVoiceChannel);
 
-  //only proceed to deleting the user from another embed if he switched channels
-  if (!hasSwitched && newVoiceChannel) {
-    channel = await client.channels.fetch(newVoiceChannel!);
-  } else {
-    channel = await client.channels.fetch(prevVoiceChannel!);
-  }
+  const newMessageParsed = parseMessageRelatedToChannel(messagesArr, newVoiceChannel);
 
-  const invite = (channel as VoiceChannel).full ? { url: '' } : await (channel as VoiceChannel)?.createInvite();
-  const userLimit = (channel as VoiceChannel).userLimit;
+  // add user to embed
+  if (!isParent && hasJoined) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    channel = await client.channels.fetch(newVoiceChannel);
+    const userLimit = (channel as VoiceChannel).userLimit;
 
-  if (hasJoined) {
-    // add user to embed
-    const newMessageParsed = parseMessageRelatedToChannel(messagesArr, newVoiceChannel);
     if (newMessageParsed?.message && newMessageParsed?.embedParsed && newMessageParsed?.embedParsed.users) {
+      const invite = (channel as VoiceChannel).full ? { url: '' } : await (channel as VoiceChannel)?.createInvite();
       const alreadyInEmbed = newMessageParsed.embedParsed.users.find((u: any) => u.discordId === userId);
       if (alreadyInEmbed) return;
 
@@ -54,7 +67,9 @@ export const voiceResolver = async (client: Client, oldState: VoiceState, newSta
         ? [...newMessageParsed.embedParsed.users, userNew]
         : newMessageParsed.embedParsed.users;
 
-      const missingPlayersContent = usersNew && usersNew.length && ` +${userLimit - usersNew.length} `;
+      const missingPlayersContent = userLimit
+        ? usersNew && usersNew.length && ` +${userLimit - usersNew.length}`
+        : '⛔';
 
       const footer = usersNew?.length === userLimit ? 'Канал заполнен ⛔' : `В поиске ${missingPlayersContent} игроков`;
       const missingPlayers = usersNew ? userLimit - usersNew?.length : 0;
@@ -71,38 +86,46 @@ export const voiceResolver = async (client: Client, oldState: VoiceState, newSta
       );
     }
 
-    // Remove user from channel embed
-    const prevMessageParsed = parseMessageRelatedToChannel(messagesArr, prevVoiceChannel);
-    if (!prevMessageParsed?.message || !prevMessageParsed?.embedParsed || !prevMessageParsed?.embedParsed.users) return;
-    const { message, embedParsed } = prevMessageParsed;
-
-    // delete embed if only person on embed left or author left
-    if (prevMessageParsed.embedParsed.users.length === 1 || embedParsed.author?.id === userId) {
-      await message.delete();
+    // only proceed to deleting the user from another embed if he switched channels
+    if (!hasSwitched) {
       return;
     }
-    console.log('embedParsed');
-    console.log(embedParsed);
-    // remove from embed
-    if (embedParsed.users && embedParsed.users.length > 1 && embedParsed.author && embedParsed.author.id !== null) {
-      const newUsers = embedParsed.users.filter((u: any) => u.discordId !== userId);
-      console.log('newUsers');
-      console.log(newUsers);
-      const missingPlayersContent = newUsers && newUsers.length && ` +${userLimit - newUsers.length} `;
+  }
 
-      const footer = newUsers?.length === userLimit ? 'Канал заполнен ⛔' : `В поиске ${missingPlayersContent} игроков`;
-      const missingPlayers = newUsers ? userLimit - newUsers?.length : 0;
+  // Remove user from channel embed
+  const prevMessageParsed = parseMessageRelatedToChannel(messagesArr, prevVoiceChannel);
+  if (!prevMessageParsed?.message || !prevMessageParsed?.embedParsed || !prevMessageParsed?.embedParsed.users) return;
+  const { message, embedParsed } = prevMessageParsed;
 
-      await message.edit(
-        '',
-        LfsMessage({
-          ...embedParsed,
-          footer,
-          missingPlayers,
-          inviteUrl: invite.url,
-          users: newUsers,
-        }),
-      );
-    }
+  // delete embed if only person on embed left or author left
+  if (prevMessageParsed.embedParsed.users.length === 1 || embedParsed.author?.id === userId) {
+    await message.delete();
+    return;
+  }
+
+  // remove from embed
+  if (embedParsed.users && embedParsed.users.length > 1 && embedParsed.author && embedParsed.author.id !== null) {
+    channel = await client.channels.fetch(prevVoiceChannel!);
+    const invite = (channel as VoiceChannel).full ? { url: '' } : await (channel as VoiceChannel)?.createInvite();
+    const userLimit = (channel as VoiceChannel).userLimit;
+
+    const newUsers = embedParsed.users.filter((u: any) => u.discordId !== userId);
+    console.log('newUsers');
+    console.log(newUsers);
+    const missingPlayersContent = newUsers && newUsers.length && ` +${userLimit - newUsers.length} `;
+
+    const footer = newUsers?.length === userLimit ? 'Канал заполнен ⛔' : `В поиске ${missingPlayersContent} игроков`;
+    const missingPlayers = newUsers ? userLimit - newUsers?.length : 0;
+
+    await message.edit(
+      '',
+      LfsMessage({
+        ...embedParsed,
+        footer,
+        missingPlayers,
+        inviteUrl: invite.url,
+        users: newUsers,
+      }),
+    );
   }
 };

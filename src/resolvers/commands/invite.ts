@@ -3,23 +3,7 @@ import { CommandResolver, NOTE_LIMIT_CHARS } from '.';
 import { deleteAllLfsAuthorEmbeds, parseMessageRelatedToChannel } from '../../utils/embeds';
 import { EmbedError } from '../../embeds/Error';
 import User from '../../models/user';
-import { Author, LfsMessage } from '../../models/LfsMessage';
-import { VoiceChannel } from 'discord.js';
-
-const inProgressMedia = [
-  'https://media2.giphy.com/media/l3mZfUQOvmrjTTkiY/giphy.gif',
-  'https://media.giphy.com/media/3oKIPmaM8aFolCcuI0/giphy.gif',
-  'https://media1.giphy.com/media/3ohs7YomxqOz4GRHcQ/giphy.gif',
-  'https://media1.giphy.com/media/3ohzdOE33hBQ7duPfi/giphy.gif',
-  'https://media.giphy.com/media/qlCFjkSruesco/giphy.gif',
-  'https://media.giphy.com/media/3oKIP5KxPss1gjwpG0/giphy.gif',
-];
-
-const missingPlayersMedia: { [key: number]: string } = {
-  1: 'https://i.imgur.com/TvqWGPH.png',
-  2: 'https://i.imgur.com/S8jNcjs.png',
-  3: 'https://i.imgur.com/cx62O1M.png',
-};
+import { LfsMessage } from '../../models/LfsMessage';
 
 const LfsResolver: CommandResolver = async (client, message, argumentsParsed) => {
   if (message.channel.id !== process.env.LFS_CHANNEL_ID) return;
@@ -56,7 +40,13 @@ const LfsResolver: CommandResolver = async (client, message, argumentsParsed) =>
     }
 
     // should only create lfs if less than 4 players in channel
-    if (authorVoiceChannel && authorVoiceChannel?.members?.size >= authorVoiceChannel?.userLimit) {
+    console.log('limit', authorVoiceChannel?.userLimit);
+    console.log('authorVoiceChannel?.members?.size', authorVoiceChannel?.members?.size);
+    if (
+      authorVoiceChannel &&
+      authorVoiceChannel?.userLimit > 0 &&
+      authorVoiceChannel?.members?.size >= authorVoiceChannel?.userLimit
+    ) {
       await message.member?.send('Ваш канал уже заполнен');
       return;
     }
@@ -70,7 +60,7 @@ const LfsResolver: CommandResolver = async (client, message, argumentsParsed) =>
     //TODO много лишнего
     const users = computeChannelUsers(authorVoiceChannel?.members, channelUsersDocuments, message.author.id);
 
-    const missingPlayersContent = users && users.length && ` +${userLimit - users.length} `;
+    const missingPlayersContent = userLimit ? users && users.length && ` +${userLimit - users.length}` : '⛔';
 
     const footer = users?.length === userLimit ? 'Канал заполнен ⛔' : `В поиске ${missingPlayersContent} игроков`;
 

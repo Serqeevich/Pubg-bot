@@ -53,7 +53,7 @@ export const commandsResolver = async (client: Client, message: Message) => {
 
   const [command] = commandArgv._;
 
-  if (!COMMANDS.includes(command.toLowerCase().trim())) return null;
+  if (!COMMANDS.includes(command?.toLowerCase().trim())) return null;
 
   try {
     AntiSpam.log(message.author.id, message.content);

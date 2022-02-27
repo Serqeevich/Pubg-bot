@@ -38,8 +38,14 @@ export const LfsMessage = ({ author, channel, inviteUrl, users, note, footer, mi
   const usersList = users?.map((user) => {
     return `\n<@${user.discordId}>`;
   });
-  
+  console.log('missingPlayers', missingPlayers);
+  console.log('missingPlayers', typeof missingPlayers);
+
   const calculateImage = (missingPlayers: number) => {
+    if (missingPlayers < 0) {
+      return 'https://cdn.discordapp.com/attachments/939806800679690260/945611614244208650/GOTOP.png';
+    }
+
     if (missingPlayers <= 3) {
       return missingPlayersMedia[missingPlayers];
     }
@@ -48,7 +54,7 @@ export const LfsMessage = ({ author, channel, inviteUrl, users, note, footer, mi
   };
 
   const thumbnail =
-    missingPlayers && missingPlayers > 0
+    missingPlayers && missingPlayers != 0
       ? calculateImage(missingPlayers)
       : inProgressMedia[Math.floor(Math.random() * inProgressMedia.length)];
 
@@ -60,12 +66,14 @@ export const LfsMessage = ({ author, channel, inviteUrl, users, note, footer, mi
     }
   };
 
-  const connectionUrl = inviteUrl ? `**Подключиться:** ${inviteUrl}` : `**Играют в канале:** **${channel?.name}**ㅤㅤㅤㅤㅤㅤㅤㅤ`;
+  const connectionUrl = inviteUrl
+    ? `**Подключиться:** ${inviteUrl}`
+    : `**Играют в канале:** **${channel?.name}**ㅤㅤㅤㅤㅤㅤㅤㅤ`;
 
   const Embed = new MessageEmbed()
-    .setColor(users?.length === 4 ? '#FF0000' : '#00FF00') //цвет сообщения   
+    .setColor(users?.length === 4 ? '#FF0000' : '#00FF00') //цвет сообщения
     .setDescription(
-`
+      `
           
 ${usersList?.join('')}
 

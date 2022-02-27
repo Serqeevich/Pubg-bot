@@ -108,5 +108,5 @@ export const removeAccent = (content: string) => {
 };
 
 export const clearMessage = (content: string) => {
-  return removeAccent(content.toLowerCase().replace(/\s+/g, ''));
+  return removeAccent(content?.toLowerCase().replace(/\s+/g, ''));
 };

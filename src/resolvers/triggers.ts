@@ -12,15 +12,19 @@ type Triggers = {
   };
 };
 
+//стоп
+const stopWords = ['лс', 'caralho', 'crl', 'puta', 'fodase', 'foda-se'];
+
 export const triggers: Triggers = {
   lousyWords: {
-    words: ['merda', 'caralho', 'crl', 'puta', 'fodase', 'foda-se'],
+    words: stopWords,
     resolver: async (client, message) => {
-      await message.reply('Посмотрите на формулировку!! https://i.imgur.com/CPLrQoP.jpg');
+      await message.delete();
+      const reply = await message.reply('Посмотрите на формулировку!! https://i.imgur.com/CPLrQoP.jpg');
+      setTimeout(() => reply.delete(), 7000);
     },
   },
 };
-
 
 export const TRIGGERS_AVAILABLE = Object.keys(triggers);
 
@@ -49,4 +53,3 @@ export const triggersResolver = async (client: Client, message: Message) => {
     await logError(client, message.channel.id, err);
   }
 };
-
