@@ -8,7 +8,7 @@ import LinkResolver from './reg';
 import UnlinkResolver from './unlink';
 import UpdateResolver from './update';
 import StatResolver from './stat';
-
+import MapResolver from './map'
 import AntiSpam from '../../services/spam';
 
 export type CommandResolver = (client: Client, message: Message, argumentsParsed: argv.Arguments) => Promise<void>;
@@ -22,6 +22,7 @@ export const QUOTE_REGEX = /^"(.*?)"$/;
 
 export const resolvers: Resolvers = {
   '!invite': LfsResolver,
+  '!map': MapResolver,
   '!i': LfsResolver,
   '!reg': LinkResolver,
   '!unreg': UnlinkResolver,
