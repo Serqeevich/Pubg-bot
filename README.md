@@ -48,10 +48,8 @@ Admin command, same as previous but assigns the stats of the PUBG_NAME to the us
 | `Bronze`, `Silver`, `Gold`, `Platinum`, `Diamond`, `Master` | Ранговые роли. |
 | `R.ADR 100+`,`R.ADR 200+`,`R.ADR 300+`,`R.ADR 400+`,`R.ADR 500+`,|Ранговые роли ADR. |
 | `R.KD 1+`, `R.KD 2+`, `R.KD 3+`, `R.KD 4+`, , `R.KD 5+`,  |Ранговые роли KD. |
-
-| `TPP ADR 100+`,`TPP ADR 200+`,`TPP ADR 300+`,`TPP ADR 400+`,`TPP ADR 500+`,|Ранговые роли ADR. |
+| `TPP ADR 100+`,`TPP ADR 200+`,`TPP ADR 300+`,`TPP ADR 400+`,`TPP ADR 500+`,|TPP роли ADR. |
 | `TPP KD 1+`, `TPP KD 2+`, `TPP KD 3+`, `TPP KD 4+`, , `TPP KD 5+`,  |TPP роли KD. |
-
 | `FPP ADR 100+`,`FPP ADR 200+`,`FPP ADR 300+`,`FPP ADR 400+`,`FPP ADR 500+`,|FPP роли ADR. |
 | `FPP KD 1+`, `FPP KD 2+`, `FPP KD 3+`, `FPP KD 4+`, , `FPP KD 5+`,  |FPP роли KD. |
 

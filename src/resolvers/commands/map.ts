@@ -33,8 +33,8 @@ const miramar = {
     { name: 'Junkyard', img: 'https://i.imgur.com/5DMvud1.png' },
     { name: 'Graveyard', img: 'https://i.imgur.com/wWdM2wV.png' },
     { name: 'Watertown', img: 'https://i.imgur.com/WphhHWV.png' },
-    { name: 'the towns at the southcoast', img: 'https://i.imgur.com/QvcapHA.png' },
-    { name: 'the towns at the eastcoast', img: 'https://i.imgur.com/wObs08T.png' },
+    { name: 'Кемп на южном побережье', img: 'https://i.imgur.com/QvcapHA.png' },
+    { name: 'Кемп на восточном побережье', img: 'https://i.imgur.com/wObs08T.png' },
   ],
 };
 
@@ -66,9 +66,9 @@ const vikendi = {
     { name: 'Volnova', img: 'https://i.imgur.com/VS0AUWd.png' },
     { name: 'Winery', img: 'https://i.imgur.com/42WWt9T.png' },
     { name: 'Zabava', img: 'https://i.imgur.com/XPcKP8D.png' },
-    { name: 'the little towns left of Villa', img: 'https://i.imgur.com/8Ctjmnp.png' },
-    { name: 'the little towns around Peshkova', img: 'https://i.imgur.com/z8at7cR.png' },
-    { name: 'the little towns above Cantra', img: 'https://i.imgur.com/FCNursH.png' },
+    { name: 'маленькие кемпы слева от виллы', img: 'https://i.imgur.com/8Ctjmnp.png' },
+    { name: 'маленькие кемпы вокруг от Peshkova', img: 'https://i.imgur.com/z8at7cR.png' },
+    { name: 'маленькие кемпы над Cantra', img: 'https://i.imgur.com/FCNursH.png' },
   ],
 };
 
@@ -100,11 +100,11 @@ const erangel = {
     { name: 'Mylta', img: 'https://i.imgur.com/MwnkQ2W.png' },
     { name: 'Mylta Power', img: 'https://i.imgur.com/TXks6uP.png' },
     { name: 'Farm', img: 'https://i.imgur.com/V5tRH1F.png' },
-    { name: 'the little towns westcoast of main island', img: 'https://i.imgur.com/jjS5ykS.jpg' },
+    { name: 'Кемпы на западном побережье', img: 'https://i.imgur.com/jjS5ykS.jpg' },
     { name: 'Sosnovka Military Base', img: 'https://i.imgur.com/S0u2wdi.jpg' },
     { name: 'Novorepnoye', img: 'https://i.imgur.com/LGftK0l.png' },
-    { name: 'the little towns north-west Sosnovka Island', img: 'https://i.imgur.com/D3V0HCC.jpg' },
-    { name: 'the little towns south Sosnovka Island', img: 'https://i.imgur.com/qjStW3c.jpg' },
+    { name: 'Кемпы к северо-западу от Сосновки', img: 'https://i.imgur.com/D3V0HCC.jpg' },
+    { name: 'Кемпы к  югу от  Сосновки', img: 'https://i.imgur.com/qjStW3c.jpg' },
   ],
 };
 

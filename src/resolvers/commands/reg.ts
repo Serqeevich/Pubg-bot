@@ -56,22 +56,25 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
   const pubgNickname = argumentsParsed._[1] || '';
   const discordId = argumentsParsed._[2] || '';
   const isAdminCommand = isAdminChannel && discordId;
-  const command = isAdminChannel ? `\`!reg Pubg_Nick Discord_id\`` : `\`!reg Pubg_Nick\``;
+  const command = isAdminChannel ? `\`!reg Shroud discord_id\`` : `\`!reg Shroud\``;
 
  
   if (pubgNickname === '') {
-    throw new EmbedError(
-      
-      `<@${message.author.id}> Для привязки игрового аккаунта введите свой игровой никнейм.\nПример: ${command}`,
+    
+    throw message.member?.send(
+    new MessageEmbed()
+      .setDescription(`<@${message.author.id}> Для привязки игрового аккаунта введите игровой никнейм.\nПример: ${command}`,)
       );
     
   }
 
 
   if (isAdminChannel && discordId === '') {
-    throw new EmbedError(
+    throw  new EmbedError(
       `<@${message.author.id}> Чтобы привязать  **${pubgNickname}** в а админ-канале вам необходимо указать ID , пример:  ${command}`,
+    
     );
+    
   }
 
   const feedbackMessage = await message.channel.send('Загружаем статистику...');

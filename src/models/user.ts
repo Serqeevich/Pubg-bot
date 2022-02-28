@@ -92,7 +92,7 @@ UserSchema.statics = {
       if (force && userWithNick.discordId !== discordId) {
         await userWithNick.delete();
       } else {
-        throw new EmbedError(`<@${userWithNick.discordId}> уже привязан к этому аккаунту **${pubgNickname}**.`);
+        throw new EmbedError (`<@${userWithNick.discordId}> уже привязан к аккаунту **${pubgNickname}**.`);
       }
     }
 
