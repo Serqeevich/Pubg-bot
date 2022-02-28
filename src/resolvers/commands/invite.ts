@@ -47,7 +47,7 @@ const LfsResolver: CommandResolver = async (client, message, argumentsParsed) =>
       authorVoiceChannel?.userLimit > 0 &&
       authorVoiceChannel?.members?.size >= authorVoiceChannel?.userLimit
     ) {
-      await message.member?.send('Ваш канал уже заполнен');
+      await message.member?.send('Ваш канал уже заполнен.');
       return;
     }
   }
@@ -60,7 +60,7 @@ const LfsResolver: CommandResolver = async (client, message, argumentsParsed) =>
     //TODO много лишнего
     const users = computeChannelUsers(authorVoiceChannel?.members, channelUsersDocuments, message.author.id);
 
-    const missingPlayersContent = userLimit ? users && users.length && ` +${userLimit - users.length}` : '⛔';
+    const missingPlayersContent = userLimit ? users && users.length && ` +${userLimit - users.length}` : '';
 
     const footer = users?.length === userLimit ? 'Канал заполнен ⛔' : `В поиске ${missingPlayersContent} игроков`;
 

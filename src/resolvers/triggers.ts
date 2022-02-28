@@ -1,4 +1,4 @@
-import { Client, Message } from 'discord.js';
+import { Client, Message, MessageEmbed } from 'discord.js';
 import { logError } from '../services/logs';
 import { clearMessage } from './../utils/helpers';
 import AntiSpam from './../services/spam';
@@ -13,14 +13,19 @@ type Triggers = {
 };
 
 //стоп
-const stopWords = ['лс', 'caralho', 'crl', 'puta', 'fodase', 'foda-se'];
+const stopWords = ['лс', 'хуй'];
 
 export const triggers: Triggers = {
   lousyWords: {
     words: stopWords,
     resolver: async (client, message) => {
+      
       await message.delete();
-      const reply = await message.reply('Посмотрите на формулировку!! https://i.imgur.com/CPLrQoP.jpg');
+      const reply = await message.reply(
+        new MessageEmbed()
+        .setColor(`#FF0000`)
+        .setImage('https://cdn.discordapp.com/attachments/939806800679690260/947526278989353040/stop-funny-animal.gif')
+      )
       setTimeout(() => reply.delete(), 7000);
     },
   },

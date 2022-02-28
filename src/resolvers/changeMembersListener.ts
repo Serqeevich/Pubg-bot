@@ -69,7 +69,7 @@ export const voiceResolver = async (client: Client, oldState: VoiceState, newSta
 
       const missingPlayersContent = userLimit
         ? usersNew && usersNew.length && ` +${userLimit - usersNew.length}`
-        : '⛔';
+        : '';
 
       const footer = usersNew?.length === userLimit ? 'Канал заполнен ⛔' : `В поиске ${missingPlayersContent} игроков`;
       const missingPlayers = usersNew ? userLimit - usersNew?.length : 0;

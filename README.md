@@ -1,19 +1,15 @@
 # Pubg-bot
 
-### Как установить?
-
-Don't be a crybaby: clone, install and run the commands
-
 ## Команды
 
-| Command      | Description                                                      |
+| Команды      | Описание                                                      |
 | :----------- | :--------------------------------------------------------------- |
 | `yarn start:dev` | Create an optimized bundle and serve with the dev server. |
 | `yarn start` | Create an optimized bundle and serve with the production server. |
 
 ## Bot
 
-Этот бот разрабатывается для дискорд сообщества Pubg GO TOP.
+Этот бот разработан для дискорд сообщества Pubg GO TOP.
 
 ### Server installation
 
@@ -34,11 +30,7 @@ Don't be a crybaby: clone, install and run the commands
 | `/order`                          | any      | Sends a "ORDER" gif                     |
 
 ### Triggers
-If someone uses lousy words the bot will reply with a notice.
-
-### Usage
-
-The first thing a user must do is link their discord account to a pubg account by linking them, this will assign him roles according to stats and rank, once that's done he can join the rooms according to stats. He can also use the LFS channel with a more detailed embed.
+Если кто-то пишет запрещеные слова бот ему отвечает.
 
 ### 1. Регистрация
 
@@ -51,20 +43,20 @@ This command will fetch the users stats directly from the PUBG API there's a min
 Admin command, same as previous but assigns the stats of the PUBG_NAME to the user of the DISCORD_ID. Used to avoid false linking.
 
 **Роли**
-| Role(s) | Description |
+| Название | Описание |
 |:-----------------|:-------------|
 | `Bronze`, `Silver`, `Gold`, `Platinum`, `Diamond`, `Master` | Ранговые роли. |
-| `KD 0.5`, `KD 1`, `KD 1.5`, `KD 2`, `KD 2.5`, `KD 3`, `KD 3.5`, `KD 4`, `KD 4.5`, `KD 5`, `KD +6` | Роли KD. |
-| `100 ADR`, `150 ADR`, `200 ADR`, `250 ADR`, `300 ADR`, `350 ADR`, `400 ADR`, `450 ADR`, `500 ADR`, `+550 ADR` | Роли ADR. |
+| `R.ADR 100+`,`R.ADR 200+`,`R.ADR 300+`,`R.ADR 400+`,`R.ADR 500+`,|Ранговые роли ADR. |
+| `R.KD 1+`, `R.KD 2+`, `R.KD 3+`, `R.KD 4+`, , `R.KD 5+`,  |Ранговые роли KD. |
+
+| `TPP ADR 100+`,`TPP ADR 200+`,`TPP ADR 300+`,`TPP ADR 400+`,`TPP ADR 500+`,|Ранговые роли ADR. |
+| `TPP KD 1+`, `TPP KD 2+`, `TPP KD 3+`, `TPP KD 4+`, , `TPP KD 5+`,  |TPP роли KD. |
+
+| `FPP ADR 100+`,`FPP ADR 200+`,`FPP ADR 300+`,`FPP ADR 400+`,`FPP ADR 500+`,|FPP роли ADR. |
+| `FPP KD 1+`, `FPP KD 2+`, `FPP KD 3+`, `FPP KD 4+`, , `FPP KD 5+`,  |FPP роли KD. |
 
 ### 2. Поиск игроков
 
 `!invite`
 
-By typing `lfs` on the `looking-for-someone` channel the bot will create a LFS Embed, if someone reacts with a `✉️` it will send a PM to the author of the `lfs` with the request, the author can accept or decline the request and the interested party will be notified with a PM.
-
-### 3. Помощь
-
-`/help`
-
-Typing `help` on any channel the bot will delete the message sent by the user, create an Embed with a guide to all the bot commands and send it via PM.
+By typing `!invite` on the `!i` channel the bot will create a LFS Embed, if someone reacts with a `✉️` it will send a PM to the author of the `lfs` with the request, the author can accept or decline the request and the interested party will be notified with a PM.

@@ -5,6 +5,7 @@ import { EmbedError } from '../../embeds/Error';
 import { EmbedSuccessMessage } from '../../embeds/Success';
 import { addStatsRoles, removeRoles } from '../../services/roles';
 
+
 const updateMedia = [
   'https://cdn.discordapp.com/attachments/945683636680790076/945684032484704256/Alpha.png',
   'https://cdn.discordapp.com/attachments/945683636680790076/945684094992416838/Arrowhead.png',
@@ -57,11 +58,15 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
   const isAdminCommand = isAdminChannel && discordId;
   const command = isAdminChannel ? `\`!reg Pubg_Nick Discord_id\`` : `\`!reg Pubg_Nick\``;
 
+ 
   if (pubgNickname === '') {
     throw new EmbedError(
+      
       `<@${message.author.id}> Для привязки игрового аккаунта введите свой игровой никнейм.\nПример: ${command}`,
-    );
+      );
+    
   }
+
 
   if (isAdminChannel && discordId === '') {
     throw new EmbedError(
@@ -114,37 +119,22 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
       new MessageEmbed()
         .setColor(`#00FF00`)
         .setTitle(`<a:OK:940200543119355926> Регистрация пройдена.`)
-        .setDescription(
-          `[${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) <a:arrow:945647104074854410> <@${message.author.id}>`,
-        )
+        .setDescription(`[${pubgNickname}](https://pubg.op.gg/user/${pubgNickname}) <a:arrow:945647104074854410> <@${message.author.id}>`,)
         .setThumbnail(thumbnailUpdateMedia)
-        .addField(
-          `**${stats?.bestRank ? stats?.bestRank : 'Unranked'} ${stats?.subTier ? stats?.subTier : ''}**`,
-          `>  <:Point:945665709399216148> **Point:** ${
-            stats?.currentRankPoint ? stats?.currentRankPoint : '0'
-          } <:Adr:934113837970505788> **ADR:** ${
-            stats?.avgDamage ? stats.avgDamage : '0'
-          } <:KD:934114143500369920> **KD:** ${stats?.kd ? stats?.kd : '0'}`,
-        )
-        .addField(
-          `**TPP Squad**`,
-          `\n> <:Adr:934113837970505788> **ADR:** ${
-            stats?.adrTPP ? stats?.adrTPP : '0'
-          }\n> <:KD:934114143500369920> **KD:** ${stats?.kdTPP ? stats?.kdTPP : '0'}`,
-          true,
-        )
-        .addField(
-          `**FPP Squad**`,
-          `\n> <:Adr:934113837970505788> **ADR:** ${
-            stats?.adrFPP ? stats?.adrFPP : '0'
-          }\n> <:KD:934114143500369920> **KD:** ${stats?.kdFPP ? stats?.kdFPP : '0'}`,
-          true,
-        )
+
+        .addField(`**${stats?.bestRank ? stats?.bestRank : 'Unranked'} ${stats?.subTier ? stats?.subTier : ''}**`,`
+        > <:Point:945665709399216148> **Point:** ${stats?.currentRankPoint ? stats?.currentRankPoint : '0'} <:Adr:934113837970505788> **ADR:** ${stats?.avgDamage ? stats.avgDamage : '0'} <:KD:934114143500369920> **KD:** ${stats?.kd ? stats?.kd : '0'}`,)
+
+        .addField(`**TPP Squad**`,`\n
+        > <:Adr:934113837970505788> **ADR:** ${stats?.adrTPP ? stats?.adrTPP : '0'}
+        > <:KD:934114143500369920> **KD:** ${stats?.kdTPP ? stats?.kdTPP : '0'}`,true,)
+
+        .addField(`**FPP Squad**`,`\n
+        > <:Adr:934113837970505788> **ADR:** ${stats?.adrFPP ? stats?.adrFPP : '0'}
+        > <:KD:934114143500369920> **KD:** ${stats?.kdFPP ? stats?.kdFPP : '0'}`,true,)
+
         .setTimestamp()
-        .setFooter(
-          'Введите команду !reg Nickname для регистрации.',
-          `https://cdn.discordapp.com/attachments/939806800679690260/945611614244208650/GOTOP.png`,
-        ),
+        .setFooter('Команда !reg и ваш игровой ник.',`https://cdn.discordapp.com/attachments/939806800679690260/945611614244208650/GOTOP.png`,),
     );
   }
 };

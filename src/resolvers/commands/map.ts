@@ -1,7 +1,8 @@
+import { MessageEmbed } from 'discord.js';
 import { CommandResolver } from '.';
 
 const miramar = {
-  name: 'Miramar',
+  name: 'miramar',
   places: [
     { name: 'Alcantara', img: 'https://i.imgur.com/jy9c9Gq.png' },
     { name: 'Chumacera', img: 'https://i.imgur.com/lFAR5XN.png' },
@@ -38,7 +39,7 @@ const miramar = {
 };
 
 const vikendi = {
-  name: 'Vikendi',
+  name: 'vikendi',
   places: [
     { name: 'Abbey', img: '' },
     { name: 'Cantra', img: 'https://i.imgur.com/Pc0UNyg.png' },
@@ -72,7 +73,7 @@ const vikendi = {
 };
 
 const erangel = {
-  name: 'Erangel',
+  name: 'erangel',
   places: [
     { name: 'Zharki', img: 'https://i.imgur.com/OEzbpmP.jpg' },
     { name: 'Severny', img: 'https://i.imgur.com/xcGdQsI.jpg' },
@@ -108,7 +109,7 @@ const erangel = {
 };
 
 const sanhok = {
-  name: 'Sanhok',
+  name: 'sanhok',
   places: [
     { name: 'Ha Tinh', img: 'https://i.imgur.com/8K24Y7u.png' },
     { name: 'Khao', img: 'https://i.imgur.com/DUzaXR2.png' },
@@ -141,7 +142,7 @@ const sanhok = {
 };
 
 const karakin = {
-  name: 'Karakin',
+  name: 'karakin',
   places: [
     { name: 'Bahr Sahir', img: 'https://i.imgur.com/lm23hlY.png' },
     { name: 'Al Habar', img: 'https://i.imgur.com/IO4AaGy.png' },
@@ -159,7 +160,7 @@ const karakin = {
 };
 
 const taego = {
-  name: `Taego`,
+  name: `taego`,
   places: [
     {
       name: `Ho san`,
@@ -168,7 +169,7 @@ const taego = {
   ],
 };
 
-const maps = [miramar, erangel, sanhok, vikendi, karakin, taego];
+const maps = [miramar, erangel, sanhok, karakin, taego];
 
 const MapResolver: CommandResolver = async (client, message, argumentsParsed) => {
   // const isAdminChannel = message.channel.id === process.env.ADMIN_CHANNEL_ID;
@@ -181,7 +182,10 @@ const MapResolver: CommandResolver = async (client, message, argumentsParsed) =>
 
   if (!map) {
     await message.channel.send(
-      '❌ Не правильно введена карта!\nВводите **Miramar, Erangel, Sanhok, Vikendi, Taego** or Karakin.**',
+      new MessageEmbed()
+      .setColor(``)
+      .setDescription('❌ Не правильно введена карта!\n\nВводите miramar, erangel, sanhok, vikendi, taego или karakin.',)
+      
     );
     return;
   }
@@ -189,9 +193,21 @@ const MapResolver: CommandResolver = async (client, message, argumentsParsed) =>
   const randomNumber = Math.floor(Math.random() * map.places.length);
   const randomPlace = map.places[randomNumber];
 
-  await message.channel.send(`Играете на ${map.name}?\nУдачи в **${randomPlace.name}**! 🪂`, {
+  /*await message.channel.send(`Играете на ${map.name}?\nУдачи в **${randomPlace.name}**! 🪂`, {
     files: [randomPlace.img],
-  });
+  });*/
+
+
+  await message.channel.send(
+    new MessageEmbed()
+    .setColor('#FFFF00')
+    .setTitle(`Удачи в ${randomPlace.name}!` )
+    .setImage(`${randomPlace.img}`)
+    .setTimestamp()
+    .setFooter(`Введите !map и название карты.`)
+
+  )
+
 };
 
 export default MapResolver;
