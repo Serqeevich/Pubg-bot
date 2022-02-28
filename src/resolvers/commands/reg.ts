@@ -63,7 +63,7 @@ const LinkResolver: CommandResolver = async (client, message, argumentsParsed) =
     
     throw message.member?.send(
     new MessageEmbed()
-      .setDescription(`<@${message.author.id}> Для привязки игрового аккаунта введите игровой никнейм.\nПример: ${command}`,)
+      .setDescription(`Для привязки игрового аккаунта введите игровой никнейм.\nПример: ${command}`,)  // <@${message.author.id}> вырезал потому что идет в лс теперь
       );
     
   }
