@@ -3,9 +3,9 @@ import { MessageEmbed } from 'discord.js';
 const inProgressMedia = ['https://cdn.discordapp.com/attachments/939806800679690260/946066357114503238/FULL.png'];
 
 const missingPlayersMedia: { [key: number]: string } = {
-  1: 'https://i.imgur.com/TvqWGPH.png',
-  2: 'https://i.imgur.com/S8jNcjs.png',
-  3: 'https://i.imgur.com/cx62O1M.png',
+  1: 'https://cdn.discordapp.com/attachments/939806800679690260/947890426449383424/1.png',
+  2: 'https://cdn.discordapp.com/attachments/939806800679690260/947890426898178068/2.png',
+  3: 'https://cdn.discordapp.com/attachments/939806800679690260/947890427195953202/3.png',
 };
 
 export type Author = {
