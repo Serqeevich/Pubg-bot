@@ -66,9 +66,9 @@ const vikendi = {
     { name: 'Volnova', img: 'https://i.imgur.com/VS0AUWd.png' },
     { name: 'Winery', img: 'https://i.imgur.com/42WWt9T.png' },
     { name: 'Zabava', img: 'https://i.imgur.com/XPcKP8D.png' },
-    { name: 'маленькие кемпы слева от виллы', img: 'https://i.imgur.com/8Ctjmnp.png' },
-    { name: 'маленькие кемпы вокруг от Peshkova', img: 'https://i.imgur.com/z8at7cR.png' },
-    { name: 'маленькие кемпы над Cantra', img: 'https://i.imgur.com/FCNursH.png' },
+    { name: 'Кемпы слева от виллы', img: 'https://i.imgur.com/8Ctjmnp.png' },
+    { name: 'Кемпы вокруг от Peshkova', img: 'https://i.imgur.com/z8at7cR.png' },
+    { name: 'Кемпы над Cantra', img: 'https://i.imgur.com/FCNursH.png' },
   ],
 };
 
@@ -131,13 +131,13 @@ const sanhok = {
     { name: 'Ban Tai', img: 'https://i.imgur.com/RCKDgxF.png' },
     { name: 'Sahmee', img: 'https://i.imgur.com/ROiA2RQ.png' },
     { name: 'Na Kham', img: 'https://i.imgur.com/Y8477d4.png' },
-    { name: 'the little towns around Camp Alpha', img: 'https://i.imgur.com/YjFEvpG.png' },
-    { name: 'the little towns south-west of Tatmok', img: 'https://i.imgur.com/vyNKbwh.png' },
-    { name: 'the little towns around Cave', img: 'https://i.imgur.com/De17MVd.png' },
-    { name: 'the little towns around Airfield', img: 'https://i.imgur.com/g7OD9Dr.png' },
-    { name: 'the little towns north-east of Sahmee', img: 'https://i.imgur.com/1STP6tr.png' },
-    { name: 'the little towns around Bootcamp', img: 'https://i.imgur.com/2BQTaxG.png' },
-    { name: 'the little towns around Lakawi', img: 'https://i.imgur.com/tA24GGP.png' },
+    { name: 'Кемпы вокруг Camp Alpha', img: 'https://i.imgur.com/YjFEvpG.png' },
+    { name: 'Кемпы слева от Tatmok', img: 'https://i.imgur.com/vyNKbwh.png' },
+    { name: 'Кемпы вокруг Cave', img: 'https://i.imgur.com/De17MVd.png' },
+    { name: 'Кемпы вокруг Airfield', img: 'https://i.imgur.com/g7OD9Dr.png' },
+    { name: 'Кемпы справа от Sahmee', img: 'https://i.imgur.com/1STP6tr.png' },
+    { name: 'Кемпы спрва Bootcamp', img: 'https://i.imgur.com/2BQTaxG.png' },
+    { name: 'Кемпы вокруг Lakawi', img: 'https://i.imgur.com/tA24GGP.png' },
   ],
 };
 
@@ -150,22 +150,37 @@ const karakin = {
     { name: 'Cargo Ship', img: 'https://i.imgur.com/WyD9Img.png' },
     { name: 'Al Hayik', img: 'https://i.imgur.com/2kxXyWW.png' },
     { name: 'Hadiqa Nemo', img: 'https://i.imgur.com/UcQmQ0U.png' },
-    { name: 'the little towns north', img: 'https://i.imgur.com/BCK37d8.png' },
-    { name: 'the little towns north-west', img: 'https://i.imgur.com/2LmiZj4.png' },
-    { name: 'the little towns east', img: 'https://i.imgur.com/n8tBrzg.png' },
-    { name: 'the little towns center', img: 'https://i.imgur.com/GYXaX4X.png' },
-    { name: 'the little towns south-east', img: 'https://i.imgur.com/6zrKcMd.png' },
-    { name: 'the little towns south-west', img: 'https://i.imgur.com/8QaQQfK.png' },
+    { name: 'Кемпы на севере', img: 'https://i.imgur.com/BCK37d8.png' },
+    { name: 'Кемпы на северо-западе', img: 'https://i.imgur.com/2LmiZj4.png' },
+    { name: 'Кемпы на востоке', img: 'https://i.imgur.com/n8tBrzg.png' },
+    { name: 'Кемпы в центре', img: 'https://i.imgur.com/GYXaX4X.png' },
+    { name: 'Кемпы на юго-востоке', img: 'https://i.imgur.com/6zrKcMd.png' },
+    { name: 'Кемпы на юго-западе', img: 'https://i.imgur.com/8QaQQfK.png' },
   ],
 };
 
 const taego = {
   name: `taego`,
   places: [
-    {
-      name: `Ho san`,
-      img: `https://cdn.discordapp.com/attachments/939806800679690260/943068581258735616/Unranked-min.png`,
-    },
+    {name: `Army Base`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948141910952910899/army_base.png`},
+    {name: `Shipyard`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948147360234602496/shipyard.png`},
+    {name: `Wol Song`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948147489184305162/wol_song.png`},
+    {name: `Hae Moo Sa`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948144459684663336/hae_moo_sa.png`},
+    {name: `Go Dok`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948141910005014528/go_dok.png`},
+    {name: `Yong Cheon`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948141911938568212/yong_cheon.png`},
+    {name: `Airport`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948146790086103050/airoport.png`},
+    {name: `Palace`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948144463161741333/palace.png`},
+    {name: `Terminal`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948141908843171880/terminal.png`},
+    {name: `Kang Neung`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948146702827810856/kang_neung.png`},
+    {name: `Fishing Camp`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948144458548011048/fishing_camp.png`},
+    {name: `Ha Po`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948144558536019998/ha_po.png`},
+    {name: `Ho san`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948144462058618900/ho_san.png`},
+    {name: `Buk San Sa`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948146283460325377/buk_san_sa.png`},
+    {name: `Oh hyang`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948145903628353566/oh_hyang.png`},
+    {name: `Ho San Prison`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948144460921970728/ho_san_prison.png`},
+    {name: `School`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948145133742862406/school.png`},
+    {name: `Song Am`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948145193058721802/song_am.png`},
+    {name: `Studio`, img: `https://cdn.discordapp.com/attachments/948140891745427466/948145703329366066/studio.png`},
   ],
 };
 
@@ -179,12 +194,12 @@ const MapResolver: CommandResolver = async (client, message, argumentsParsed) =>
 
   // const mapWord = words.substring(0, 1).toUpperCase() + words[1].substring(1).toLowerCase();
   const map = maps.find((map) => map.name === words);
-
+  await message.delete();
   if (!map) {
     await message.channel.send(
       new MessageEmbed()
       .setColor(``)
-      .setDescription('❌ Не правильно введена карта!\n\nВводите miramar, erangel, sanhok, vikendi, taego или karakin.',)
+      .setDescription('❌ Не правильно введена карта!\n\nВводите miramar, erangel, sanhok, taego или karakin.',)
       
     );
     return;
@@ -204,7 +219,7 @@ const MapResolver: CommandResolver = async (client, message, argumentsParsed) =>
     .setTitle(`Удачи в ${randomPlace.name}!` )
     .setImage(`${randomPlace.img}`)
     .setTimestamp()
-    .setFooter(`Введите !map и название карты.`)
+    .setFooter(`Введите !d и название карты.`)
 
   )
 

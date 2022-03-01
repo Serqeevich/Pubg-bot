@@ -12,7 +12,7 @@ const parentChannels = [
   '931954839527780392', //squad tpp 18+
   '931954932024758282', //squad fpp 18+
   '931954994796691516', //duo 18+
-  '919195736275554345', //other
+  '948132941425430549', //other
 ];
 
 export const voiceResolver = async (client: Client, oldState: VoiceState, newState: VoiceState) => {

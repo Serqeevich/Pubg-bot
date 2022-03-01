@@ -17,7 +17,7 @@ const updateMedia = [
   ];
 
 const StatResolver: CommandResolver = async (client, message) => {
-    if (message.channel.id !== process.env.ROLES_CHANNEL_ID) return;
+    //if (message.channel.id !== process.env.ROLES_CHANNEL_ID) return;
     await message.delete();
   
     const feedbackMessage = await message.channel.send(`Поиск...`);
