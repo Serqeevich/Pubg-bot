@@ -22,7 +22,7 @@ export const QUOTE_REGEX = /^"(.*?)"$/;
 
 export const resolvers: Resolvers = {
   '!invite': LfsResolver,
-  '!d': MapResolver,
+  '!drop': MapResolver,
   '!i': LfsResolver,
   '!reg': LinkResolver,
   '!unreg': UnlinkResolver,

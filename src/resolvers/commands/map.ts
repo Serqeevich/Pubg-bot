@@ -33,8 +33,8 @@ const miramar = {
     { name: 'Junkyard', img: 'https://i.imgur.com/5DMvud1.png' },
     { name: 'Graveyard', img: 'https://i.imgur.com/wWdM2wV.png' },
     { name: 'Watertown', img: 'https://i.imgur.com/WphhHWV.png' },
-    { name: 'Кемп на южном побережье', img: 'https://i.imgur.com/QvcapHA.png' },
-    { name: 'Кемп на восточном побережье', img: 'https://i.imgur.com/wObs08T.png' },
+    { name: 'кемп на южном побережье', img: 'https://i.imgur.com/QvcapHA.png' },
+    { name: 'кемп на восточном побережье', img: 'https://i.imgur.com/wObs08T.png' },
   ],
 };
 
@@ -103,8 +103,8 @@ const erangel = {
     { name: 'Кемпы на западном побережье', img: 'https://i.imgur.com/jjS5ykS.jpg' },
     { name: 'Sosnovka Military Base', img: 'https://i.imgur.com/S0u2wdi.jpg' },
     { name: 'Novorepnoye', img: 'https://i.imgur.com/LGftK0l.png' },
-    { name: 'Кемпы к северо-западу от Сосновки', img: 'https://i.imgur.com/D3V0HCC.jpg' },
-    { name: 'Кемпы к  югу от  Сосновки', img: 'https://i.imgur.com/qjStW3c.jpg' },
+    { name: 'кемпы к северо-западу от Сосновки', img: 'https://i.imgur.com/D3V0HCC.jpg' },
+    { name: 'кемпы к  югу от  Сосновки', img: 'https://i.imgur.com/qjStW3c.jpg' },
   ],
 };
 
@@ -150,12 +150,12 @@ const karakin = {
     { name: 'Cargo Ship', img: 'https://i.imgur.com/WyD9Img.png' },
     { name: 'Al Hayik', img: 'https://i.imgur.com/2kxXyWW.png' },
     { name: 'Hadiqa Nemo', img: 'https://i.imgur.com/UcQmQ0U.png' },
-    { name: 'Кемпы на севере', img: 'https://i.imgur.com/BCK37d8.png' },
-    { name: 'Кемпы на северо-западе', img: 'https://i.imgur.com/2LmiZj4.png' },
-    { name: 'Кемпы на востоке', img: 'https://i.imgur.com/n8tBrzg.png' },
-    { name: 'Кемпы в центре', img: 'https://i.imgur.com/GYXaX4X.png' },
-    { name: 'Кемпы на юго-востоке', img: 'https://i.imgur.com/6zrKcMd.png' },
-    { name: 'Кемпы на юго-западе', img: 'https://i.imgur.com/8QaQQfK.png' },
+    { name: 'кемпы на севере', img: 'https://i.imgur.com/BCK37d8.png' },
+    { name: 'кемпы на северо-западе', img: 'https://i.imgur.com/2LmiZj4.png' },
+    { name: 'кемпы на востоке', img: 'https://i.imgur.com/n8tBrzg.png' },
+    { name: 'кемпы в центре', img: 'https://i.imgur.com/GYXaX4X.png' },
+    { name: 'кемпы на юго-востоке', img: 'https://i.imgur.com/6zrKcMd.png' },
+    { name: 'кемпы на юго-западе', img: 'https://i.imgur.com/8QaQQfK.png' },
   ],
 };
 
@@ -213,16 +213,16 @@ const MapResolver: CommandResolver = async (client, message, argumentsParsed) =>
   });*/
 
 
-  await message.channel.send(
+  const reply = await message.channel.send(
     new MessageEmbed()
     .setColor('#FFFF00')
-    .setTitle(`Удачи в ${randomPlace.name}!` )
+    .setTitle(`Отправляйтесь в ${randomPlace.name}!`)
     .setImage(`${randomPlace.img}`)
+    .addField(`Для запроса введите:`,`\`!drop\` erangel, miramar, taego, sanhok, karakin`)
     .setTimestamp()
-    .setFooter(`Введите !d и название карты.`)
-
+    .setFooter(`автоудаление через 60 секунд.`)
   )
-
+  setTimeout(() => reply.delete(), 60000);
 };
 
 export default MapResolver;
