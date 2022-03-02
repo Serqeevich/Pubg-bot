@@ -91,7 +91,7 @@ const erangel = {
     { name: 'Pochinki', img: 'https://i.imgur.com/ZCVt3NV.png' },
     { name: 'Gatka', img: 'https://i.imgur.com/FRf4I9m.png' },
     { name: 'Primorsk', img: 'https://i.imgur.com/NDbwm6P.png' },
-    { name: 'Ferry Pei', img: 'https://i.imgur.com/xhjQPOA.png' },
+    { name: 'Ferry Pier', img: 'https://i.imgur.com/xhjQPOA.png' },
     { name: 'Quarry', img: 'https://i.imgur.com/1TRzB7v.jpg' },
     { name: 'Prison', img: 'https://i.imgur.com/HPvyMaq.jpg' },
     { name: 'Mansion', img: 'https://i.imgur.com/ZDa3w00.png' },
@@ -196,12 +196,13 @@ const MapResolver: CommandResolver = async (client, message, argumentsParsed) =>
   const map = maps.find((map) => map.name === words);
   await message.delete();
   if (!map) {
-    await message.channel.send(
+    const reply = await message.channel.send(
       new MessageEmbed()
       .setColor(``)
       .setDescription('❌ Не правильно введена карта!\n\nВводите miramar, erangel, sanhok, taego или karakin.',)
       
     );
+    setTimeout(() => reply.delete(), 30000);
     return;
   }
 
