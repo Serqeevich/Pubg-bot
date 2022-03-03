@@ -1,19 +1,6 @@
-# Pubg-bot
-
-## Команды
-
-| Команды      | Описание                                                      |
-| :----------- | :--------------------------------------------------------------- |
-| `yarn start:dev` | Create an optimized bundle and serve with the dev server. |
-| `yarn start` | Create an optimized bundle and serve with the production server. |
-
-## Bot
+## GO TOP BOT
 
 Этот бот разработан для дискорд сообщества Pubg GO TOP.
-
-### Server installation
-
-Добавить бота на сервер: `https://discord.com/oauth2/authorize?client_id=BOT_CLIENT_ID&scope=bot`
 
 ### Доступные команды
 
@@ -29,18 +16,18 @@
 
 | `/order`                          | any      | Sends a "ORDER" gif                     |
 
-### Triggers
-Если кто-то пишет запрещеные слова бот ему отвечает.
+### Запрещенные слова.
+
+Если кто-то пишет запрещеные слова бот ему отвечает удаляя оригинальнгое сообщение.
 
 ### 1. Регистрация
 
 `!reg PUBG_NICK`
-
-This command will fetch the users stats directly from the PUBG API there's a minimum of 20 games required in order to provide the roles.
-
 `!reg PUBG_NAME DISCORD_ID`
-
-Admin command, same as previous but assigns the stats of the PUBG_NAME to the user of the DISCORD_ID. Used to avoid false linking.
+`!update`
+`!stat`
+`!drop`
+`!invite`
 
 **Роли**
 | Название | Описание |
@@ -52,9 +39,3 @@ Admin command, same as previous but assigns the stats of the PUBG_NAME to the us
 | `TPP KD 1+`, `TPP KD 2+`, `TPP KD 3+`, `TPP KD 4+`, , `TPP KD 5+`,  |TPP роли KD. |
 | `FPP ADR 100+`,`FPP ADR 200+`,`FPP ADR 300+`,`FPP ADR 400+`,`FPP ADR 500+`,|FPP роли ADR. |
 | `FPP KD 1+`, `FPP KD 2+`, `FPP KD 3+`, `FPP KD 4+`, , `FPP KD 5+`,  |FPP роли KD. |
-
-### 2. Поиск игроков
-
-`!invite`
-
-By typing `!invite` on the `!i` channel the bot will create a LFS Embed, if someone reacts with a `✉️` it will send a PM to the author of the `lfs` with the request, the author can accept or decline the request and the interested party will be notified with a PM.
