@@ -13,7 +13,7 @@ type Triggers = {
 };
 
 //стоп
-const stopWords = ['лс', 'хуй'];
+const stopWords = ['лс', 'хуй', 'пидор'];
 
 export const triggers: Triggers = {
   lousyWords: {
